@@ -1,0 +1,363 @@
+{% load static %}
+
+<!-- Premium Rounded Header - Full Transparency & Blur -->
+<nav id="main-navbar" class="w-full flex justify-center fixed top-0 z-50 transition-transform duration-300 ease-in-out">
+  
+  <div class="backdrop-blur-3xl bg-white/30 shadow-2xl shadow-blue-200/30 border border-white/30
+              rounded-full px-8 py-3 mt-4
+              max-w-[1200px] w-[92%] flex items-center justify-between
+              transition-all duration-500 hover:bg-white/40 hover:shadow-blue-300/40
+              will-change:transform">
+
+    <!-- Logo -->
+    <a href="{% url 'home' %}" class="flex items-center cursor-pointer group">
+
+        <!-- Logo + Neon Glow -->
+        <div class="relative">
+            <!-- Glow -->
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-400/30 to-red-400/30 
+                        blur-2xl rounded-full"></div>
+
+            <div class="relative w-12 h-12 select-none">
+
+                <!-- Logo Image -->
+                <img src="{% static 'images/JAYARAMA LOGO1.png' %}"
+                    alt="Jayarama Associates Logo"
+                    draggable="false"
+                    oncontextmenu="return false;"
+                    class="h-12 w-12 object-contain relative z-10 transition-transform duration-300
+                            group-hover:scale-110">
+
+                <!-- Transparent Security Overlay (Prevents Save/Download) -->
+                <div class="absolute inset-0 pointer-events-auto"
+                    oncontextmenu="return false;"
+                    ondragstart="return false;"></div>
+            </div>
+        </div>
+
+        <!-- Company Name Text -->
+        <div class="ml-3 leading-tight">
+            <h1 class="text-lg font-bold text-gray-900 transition-colors duration-300">
+                <span class="text-[#0096FF] group-hover:text-blue-800">JAYARAMA</span>
+                <span class="text-[#ED1C24] group-hover:text-red-800"> ASSOCIATES</span>
+            </h1>
+        </div>
+
+    </a>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex space-x-8 items-center text-[15px] font-medium">
+      {% if request.resolver_match %}
+        {% with view=request.resolver_match.view_name %}
+
+          <a href="{% url 'home' %}"
+             class="transition-all duration-300 pb-1 relative group/nav
+             {% if view == 'home' %} text-blue-800 font-semibold {% else %} text-gray-800 hover:text-blue-800 {% endif %}">
+            Home
+            <span class="absolute bottom-0 left-0 w-full h-0.5 
+              {% if view == 'home' %}
+                bg-gradient-to-r from-blue-600 to-blue-400
+              {% else %}
+                bg-gradient-to-r from-transparent via-blue-300/50 to-transparent
+                opacity-0 group-hover/nav:opacity-100
+              {% endif %}
+              rounded-full transition-all duration-300"></span>
+          </a>
+
+          <a href="{% url 'about' %}"
+             class="transition-all duration-300 pb-1 relative group/nav
+             {% if view == 'about' %} text-blue-800 font-semibold {% else %} text-gray-800 hover:text-blue-800 {% endif %}">
+            About
+            <span class="absolute bottom-0 left-0 w-full h-0.5 
+              {% if view == 'about' %}
+                bg-gradient-to-r from-blue-600 to-blue-400
+              {% else %}
+                bg-gradient-to-r from-transparent via-blue-300/50 to-transparent
+                opacity-0 group-hover/nav:opacity-100
+              {% endif %}
+              rounded-full transition-all duration-300"></span>
+          </a>
+
+          <a href="{% url 'services' %}"
+             class="transition-all duration-300 pb-1 relative group/nav
+             {% if view == 'services' %} text-blue-800 font-semibold {% else %} text-gray-800 hover:text-blue-800 {% endif %}">
+            Services
+            <span class="absolute bottom-0 left-0 w-full h-0.5 
+              {% if view == 'services' %}
+                bg-gradient-to-r from-blue-600 to-blue-400
+              {% else %}
+                bg-gradient-to-r from-transparent via-blue-300/50 to-transparent
+                opacity-0 group-hover/nav:opacity-100
+              {% endif %}
+              rounded-full transition-all duration-300"></span>
+          </a>
+
+          <a href="{% url 'contact' %}"
+             class="transition-all duration-300 pb-1 relative group/nav
+             {% if view == 'contact' %} text-blue-800 font-semibold {% else %} text-gray-800 hover:text-blue-800 {% endif %}">
+            Contact
+            <span class="absolute bottom-0 left-0 w-full h-0.5 
+              {% if view == 'contact' %}
+                bg-gradient-to-r from-blue-600 to-blue-400
+              {% else %}
+                bg-gradient-to-r from-transparent via-blue-300/50 to-transparent
+                opacity-0 group-hover/nav:opacity-100
+              {% endif %}
+              rounded-full transition-all duration-300"></span>
+          </a>
+
+          <a href="{% url 'careers:home' %}"
+             class="transition-all duration-300 pb-1 relative group/nav
+             {% if view == 'careers:home' %} text-blue-800 font-semibold {% else %} text-gray-800 hover:text-blue-800 {% endif %}">
+            Careers
+            <span class="absolute bottom-0 left-0 w-full h-0.5 
+              {% if view == 'careers:home' %}
+                bg-gradient-to-r from-blue-600 to-blue-400
+              {% else %}
+                bg-gradient-to-r from-transparent via-blue-300/50 to-transparent
+                opacity-0 group-hover/nav:opacity-100
+              {% endif %}
+              rounded-full transition-all duration-300"></span>
+          </a>
+
+        {% endwith %}
+      {% endif %}
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-button"
+            aria-expanded="false"
+            class="md:hidden p-3 rounded-full transition-all duration-300
+                   backdrop-blur-xl bg-white/30 border border-white/40
+                   hover:bg-white/50 hover:border-white/60">
+      <svg id="mobile-menu-open-icon" class="h-6 w-6 text-gray-800" fill="none"
+           viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      <svg id="mobile-menu-close-icon" class="h-6 w-6 text-gray-800 hidden" fill="none"
+           viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+  </div>
+</nav>
+
+<!-- Mobile Dropdown Menu -->
+<div id="mobile-menu"
+     class="hidden md:hidden fixed top-0 left-0 right-0 z-40 mt-24 px-4
+            transition-all duration-300 transform origin-top">
+  <div class="backdrop-blur-3xl bg-white/80 border border-white/40
+              shadow-2xl shadow-blue-200/40 rounded-3xl backdrop-saturate-150">
+    <div class="px-4 pt-2 pb-4 space-y-1">
+
+      {% if request.resolver_match %}
+        {% with view=request.resolver_match.view_name %}
+
+          <a href="{% url 'home' %}"
+             class="block px-5 py-4 rounded-2xl text-base transition-all duration-300
+             {% if view == 'home' %} backdrop-blur-xl bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-blue-900 border border-blue-400/30 shadow-lg shadow-blue-300/20 {% else %} text-gray-900 hover:backdrop-blur-lg hover:bg-white/30 hover:border hover:border-white/40 hover:shadow-md {% endif %}">
+            Home
+          </a>
+
+          <a href="{% url 'about' %}"
+             class="block px-5 py-4 rounded-2xl text-base transition-all duration-300
+             {% if view == 'about' %} backdrop-blur-xl bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-blue-900 border border-blue-400/30 shadow-lg shadow-blue-300/20 {% else %} text-gray-900 hover:backdrop-blur-lg hover:bg-white/30 hover:border hover:border-white/40 hover:shadow-md {% endif %}">
+            About
+          </a>
+
+          <a href="{% url 'services' %}"
+             class="block px-5 py-4 rounded-2xl text-base transition-all duration-300
+             {% if view == 'services' %} backdrop-blur-xl bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-blue-900 border border-blue-400/30 shadow-lg shadow-blue-300/20 {% else %} text-gray-900 hover:backdrop-blur-lg hover:bg-white/30 hover:border hover:border-white/40 hover:shadow-md {% endif %}">
+            Services
+          </a>
+
+          <a href="{% url 'contact' %}"
+             class="block px-5 py-4 rounded-2xl text-base transition-all duration-300
+             {% if view == 'contact' %} backdrop-blur-xl bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-blue-900 border border-blue-400/30 shadow-lg shadow-blue-300/20 {% else %} text-gray-900 hover:backdrop-blur-lg hover:bg-white/30 hover:border hover:border-white/40 hover:shadow-md {% endif %}">
+            Contact
+          </a>
+
+          <a href="{% url 'careers:home' %}"
+             class="block px-5 py-4 rounded-2xl text-base transition-all duration-300
+             {% if view == 'careers:home' %} backdrop-blur-xl bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-blue-900 border border-blue-400/30 shadow-lg shadow-blue-300/20 {% else %} text-gray-900 hover:backdrop-blur-lg hover:bg-white/30 hover:border hover:border-white/40 hover:shadow-md {% endif %}">
+            Careers
+          </a>
+
+        {% endwith %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    'use strict';
+    
+    // DOM Elements
+    const navbar = document.getElementById('main-navbar');
+    const mobileBtn = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const openIcon = document.getElementById('mobile-menu-open-icon');
+    const closeIcon = document.getElementById('mobile-menu-close-icon');
+    
+    if (!navbar) return;
+
+    // ====================
+    // MOBILE MENU LOGIC
+    // ====================
+    let isMobileMenuOpen = false;
+    
+    function toggleMobileMenu() {
+      if (!mobileMenu || !mobileBtn) return;
+      
+      isMobileMenuOpen = !isMobileMenuOpen;
+      
+      // Toggle menu visibility
+      mobileMenu.classList.toggle('hidden');
+      openIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+      
+      // Update aria attribute
+      mobileBtn.setAttribute('aria-expanded', isMobileMenuOpen.toString());
+      
+      // Toggle body scroll lock
+      if (isMobileMenuOpen) {
+        document.body.style.overflow = 'hidden';
+        navbar.classList.remove('navbar-hidden');
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+    
+    // Close menu when clicking outside
+    function handleClickOutside(event) {
+      if (!mobileMenu || !mobileBtn || !isMobileMenuOpen) return;
+      
+      if (!mobileBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+        closeMobileMenu();
+      }
+    }
+    
+    function closeMobileMenu() {
+      if (!mobileMenu || !mobileBtn) return;
+      
+      isMobileMenuOpen = false;
+      mobileMenu.classList.add('hidden');
+      openIcon.classList.remove('hidden');
+      closeIcon.classList.add('hidden');
+      mobileBtn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+    
+    // ====================
+    // SCROLL LOGIC - FIXED VERSION
+    // ====================
+    let lastScrollY = window.scrollY;
+    let scrollTimeout;
+    const SCROLL_THRESHOLD = 100; // Hide only after scrolling 100px
+    
+    function handleScroll() {
+      const currentScrollY = window.scrollY;
+      
+      // Skip if mobile menu is open
+      if (isMobileMenuOpen) {
+        lastScrollY = currentScrollY;
+        return;
+      }
+      
+      // Clear any existing timeout
+      clearTimeout(scrollTimeout);
+      
+      // At the very top - always show
+      if (currentScrollY <= 0) {
+        navbar.classList.remove('navbar-hidden');
+        lastScrollY = currentScrollY;
+        return;
+      }
+      
+      // Scrolling DOWN
+      if (currentScrollY > lastScrollY) {
+        // Only hide if scrolled more than threshold
+        if (currentScrollY > SCROLL_THRESHOLD) {
+          navbar.classList.add('navbar-hidden');
+        }
+      } 
+      // Scrolling UP
+      else {
+        navbar.classList.remove('navbar-hidden');
+      }
+      
+      lastScrollY = currentScrollY;
+      
+      // Optional: Show navbar after stopping scroll (only if near top)
+      // Remove this timeout if you don't want navbar to reappear automatically
+      scrollTimeout = setTimeout(() => {
+        if (currentScrollY < SCROLL_THRESHOLD) {
+          navbar.classList.remove('navbar-hidden');
+        }
+      }, 1000);
+    }
+    
+    // ====================
+    // EVENT LISTENERS
+    // ====================
+    
+    // Mobile menu events
+    if (mobileBtn) {
+      mobileBtn.addEventListener('click', toggleMobileMenu);
+    }
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        closeMobileMenu();
+      }
+    });
+    
+    // Scroll event with throttling
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+    
+    // Click outside to close mobile menu
+    document.addEventListener('click', handleClickOutside);
+    
+    // Reset navbar position on window resize
+    window.addEventListener('resize', () => {
+      navbar.classList.remove('navbar-hidden');
+      closeMobileMenu();
+    });
+    
+    // Initialize navbar state
+    handleScroll();
+    
+  })();
+</script>
+
+<style>
+  /* Custom CSS for smooth transitions */
+  #main-navbar {
+    transform: translateY(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  #main-navbar.navbar-hidden {
+    transform: translateY(-100%);
+  }
+  
+  /* Ensure mobile menu has proper backdrop */
+  #mobile-menu {
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+  }
+</style>

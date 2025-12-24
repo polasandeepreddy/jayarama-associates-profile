@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="">
+    <!-- Hero Section with 3D Parallax -->
+    <section class="relative bg-gradient-to-br from-slate-900 to-slate-800 text-white min-h-screen flex items-center overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="hidden lg:block absolute w-72 h-72 bg-amber-400/10 rounded-full -top-32 -left-32 animate-float-slow"></div>
+            <div class="hidden lg:block absolute w-96 h-96 bg-blue-400/10 rounded-full -bottom-48 -right-32 animate-float-medium"></div>
+            <div class="hidden lg:block absolute w-64 h-64 bg-emerald-400/10 rounded-full top-1/2 left-1/4 animate-float-fast"></div>
+        </div>
+
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <div class="absolute inset-0"
+                 style="background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+                        background-size: 50px 50px;
+                        transform: perspective(500px) rotateX(60deg);
+                        animation: gridMove 20s linear infinite;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 w-full">
+            <div class="animate-fade-in-up px-4 py-12 sm:py-16 md:py-20">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 leading-tight transform transition-transform duration-500 hover:scale-105">
+                    About <span class="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">JAYARAMA ASSOCIATES</span>
+                </h1>
+                <p class="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-5xl mx-auto 
+                        leading-relaxed 
+                        text-left md:text-justify 
+                        hyphens-auto">
+                    Established to serve financial institutions, buyers, investors, and the real estate sector with reliable and comprehensive land and building assessments. Our expertise ensures accurate evaluations that support informed decision-making and risk mitigation. We are committed to delivering transparent, timely, and dependable valuation services that meet industry standards.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Mission & Vision with 3D Cards -->
+    <!-- Mission & Vision with Equal Height 3D Cards -->
+<section class="py-24 bg-white relative overflow-hidden">
+    <!-- Background Animated Shapes -->
+    <div class="absolute inset-0">
+        <div class="absolute w-80 h-80 bg-gradient-to-r from-amber-100 to-orange-100 rounded-full -top-40 -right-40 opacity-50 animate-pulse-slow"></div>
+        <div class="absolute w-96 h-96 bg-gradient-to-r from-blue-100 to-slate-100 rounded-full -bottom-48 -left-48 opacity-50 animate-pulse-medium"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        <!-- Mission & Vision Grid -->
+        <div class="grid md:grid-cols-2 gap-12 mb-24 items-stretch">
+
+            <!-- Mission Card -->
+            <div class="group perspective-1000 h-full">
+                <div class="relative h-full bg-gradient-to-br from-amber-50 to-orange-50 
+                            p-12 rounded-3xl shadow-2xl border border-amber-200
+                            transition-all duration-500 transform-style-3d
+                            group-hover:rotate-y-5 group-hover:scale-105
+                            flex flex-col">
+
+                    <div class="absolute -inset-1 bg-gradient-to-r from-amber-400 to-orange-400 
+                                rounded-3xl blur opacity-30 group-hover:opacity-100 
+                                transition duration-700"></div>
+
+                    <div class="relative z-10 flex flex-col flex-grow">
+                        <div class="mb-8 animate-bounce-slow">
+                            <i data-lucide="target" class="h-16 w-16 text-amber-600"></i>
+                        </div>
+
+                        <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                            Our Mission
+                        </h2>
+
+                        <p class="text-lg text-gray-700 leading-relaxed flex-grow">
+                            To empower clients with accurate, objective, and defensible property valuations by combining technical expertise with personalized service. We strive to set benchmarks for quality while building long-term relationships founded on trust and integrity.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vision Card -->
+            <div class="group perspective-1000 h-full">
+                <div class="relative h-full bg-gradient-to-br from-blue-50 to-slate-50 
+                            p-12 rounded-3xl shadow-2xl border border-blue-200
+                            transition-all duration-500 transform-style-3d
+                            group-hover:rotate-y-5 group-hover:scale-105
+                            flex flex-col">
+
+                    <div class="absolute -inset-1 bg-gradient-to-r from-blue-400 to-slate-400 
+                                rounded-3xl blur opacity-30 group-hover:opacity-100 
+                                transition duration-700"></div>
+
+                    <div class="relative z-10 flex flex-col flex-grow">
+                        <div class="mb-8 animate-bounce-medium">
+                            <i data-lucide="eye" class="h-16 w-16 text-blue-600"></i>
+                        </div>
+
+                        <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                            Our Vision
+                        </h2>
+
+                        <p class="text-lg text-gray-700 leading-relaxed flex-grow">
+                            To be the region’s most respected property valuation partner, recognized for analytical excellence, innovative valuation practices, and an unwavering commitment to client success.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Professional Qualifications -->
+        <div class="relative bg-gray-50 p-12 rounded-3xl shadow-xl border border-gray-200 
+                    transform hover:scale-[1.02] transition-transform duration-500">
+            
+            <div class="absolute -top-6 -left-6 w-12 h-12 bg-green-500 rounded-full animate-ping opacity-20"></div>
+
+            <div class="flex items-center mb-8">
+                <div class="animate-spin-slow mr-6">
+                    <i data-lucide="users" class="h-14 w-14 text-amber-600"></i>
+                </div>
+                <h2 class="text-4xl font-bold text-gray-900">
+                    Professional Qualifications
+                </h2>
+            </div>
+
+            <p class="text-lg text-gray-700 leading-relaxed">
+                All our valuers and engineers hold recognized industry certifications and professional memberships, ensuring compliance with international valuation standards (IVS) and local regulatory requirements. Our team brings extensive experience and continuous professional development to every engagement.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+
+    <!-- Our Approach with 3D Flip Cards -->
+    <section class="py-24 bg-gradient-to-br from-slate-50 to-gray-100 relative overflow-hidden">
+        <!-- Animated Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute inset-0" style="background: radial-gradient(circle at 20% 80%, transparent 20%, #000 21%, #000 24%, transparent 25%), radial-gradient(circle at 80% 20%, transparent 20%, #000 21%, #000 24%, transparent 25%); background-size: 100px 100px; animation: patternFloat 30s linear infinite;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 transform hover:scale-110 transition-transform duration-500">Our Approach</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    A systematic, transparent process that ensures accuracy, reliability and client satisfaction at every step.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for item in approach_steps %}
+                <div class="group perspective-1000">
+                    <div class="relative w-full h-96 transform-style-3d transition-transform duration-700 group-hover:rotate-y-180">
+                        <!-- Front of Card -->
+                        <div class="absolute inset-0 backface-hidden bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
+                            <div class="flex items-center mb-6">
+                                <div class="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-amber-500 to-orange-500 text-white rounded-full font-bold text-2xl shadow-lg transform group-hover:scale-110 transition-transform">
+                                    {{ item.step }}
+                                </div>
+                                <i data-lucide="arrow-right" class="h-6 w-6 text-gray-400 ml-auto transform group-hover:translate-x-2 transition-transform"></i>
+                            </div>
+                            <h3 class="text-2xl font-semibold text-gray-900 mb-4">{{ item.title }}</h3>
+                            <p class="text-gray-600 leading-relaxed">{{ item.description }}</p>
+                        </div>
+                        
+                        <!-- Back of Card -->
+                        <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-amber-500 to-orange-500 p-8 rounded-2xl shadow-2xl text-white">
+                            <div class="flex flex-col h-full justify-center items-center text-center">
+                                <i data-lucide="check-circle" class="h-12 w-12 text-white mb-4"></i>
+                                <h3 class="text-2xl font-semibold mb-4">{{ item.title }}</h3>
+                                <p class="text-amber-100 leading-relaxed">{{ item.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+@keyframes float-slow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+@keyframes float-medium {
+    0%, 100% { transform: translateX(0px) translateY(0px); }
+    50% { transform: translateX(10px) translateY(-15px); }
+}
+
+@keyframes float-fast {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-10px) scale(1.1); }
+}
+
+@keyframes gridMove {
+    0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+    100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+}
+
+@keyframes patternFloat {
+    0% { transform: translateX(0) translateY(0); }
+    100% { transform: translateX(-100px) translateY(-100px); }
+}
+
+@keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+.animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+.animate-float-medium { animation: float-medium 4s ease-in-out infinite; }
+.animate-float-fast { animation: float-fast 2s ease-in-out infinite; }
+.animate-bounce-slow { animation: bounce 3s infinite; }
+.animate-bounce-medium { animation: bounce 2s infinite; }
+.animate-spin-slow { animation: spin 8s linear infinite; }
+.animate-fade-in-up { animation: fadeInUp 1s ease-out; }
+.animate-slide-up { animation: slideUp 1s ease-out 0.5s both; }
+.animate-typewriter { 
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typewriter 3s steps(40) 1s 1 normal both;
+}
+
+.perspective-1000 { perspective: 1000px; }
+.transform-style-3d { transform-style: preserve-3d; }
+.backface-hidden { backface-visibility: hidden; }
+.rotate-y-180 { transform: rotateY(180deg); }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
+<script>
+// Initialize 3D parallax effect
+document.addEventListener('mousemove', (e) => {
+    const depthElements = document.querySelectorAll('[data-depth]');
+    const x = (window.innerWidth - e.pageX * 2) / 25;
+    const y = (window.innerHeight - e.pageY * 2) / 25;
+    
+    depthElements.forEach(element => {
+        const depth = parseFloat(element.getAttribute('data-depth'));
+        element.style.transform = `translateX(${x * depth}px) translateY(${y * depth}px)`;
+    });
+});
+
+// Initialize Lucide icons
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,244 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jayarama Associates - Professional Footer</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        @keyframes subtlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo-pulse {
+            animation: subtlePulse 4s ease-in-out infinite;
+        }
+
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #0096FF, #ED1C24, #0096FF);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .icon-rotate:hover i {
+            transform: rotate(15deg);
+            transition: transform 0.3s ease;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+
+        .wave {
+            animation: wave 3s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        /* Force all footer content to align left */
+        .footer-left-aligned {
+            text-align: left !important;
+            align-items: flex-start !important;
+            justify-content: flex-start !important;
+        }
+        
+        /* Specific overrides for centering issues */
+        .footer-left-aligned ul {
+            text-align: left !important;
+            align-items: flex-start !important;
+            justify-content: flex-start !important;
+        }
+        
+        .footer-left-aligned .flex {
+            justify-content: flex-start !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ Footer Section -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- Company Info -->
+                <div class="fade-in footer-left-aligned">
+                    <div class="flex items-center mb-4">
+                        <img src="{% static 'images/JAYARAMA LOGO.png' %}" alt="Logo" class="h-20 w-20 object-contain logo-pulse">
+                    </div>
+
+
+                    <div class="flex space-x-4 justify-start">
+                        <a href="#" class="icon-rotate text-gray-400 hover:text-amber-500 transition-colors"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="icon-rotate text-gray-400 hover:text-amber-500 transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="icon-rotate text-gray-400 hover:text-amber-500 transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="icon-rotate text-gray-400 hover:text-amber-500 transition-colors"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="fade-in delay-1 footer-left-aligned">
+                    <h4 class="text-lg font-semibold text-white mb-4 flex items-center justify-start">
+                        <span class="wave mr-2">👆</span> Quick Links
+                    </h4>
+                    <ul class="space-y-2 text-sm pl-0">
+                        <!-- Home -->
+                        <li class="text-left">
+                            <a href="{% url 'home' %}" 
+                               class="hover-lift flex items-center group p-2 rounded-lg hover:bg-gray-800 transition-all
+                               {% if request.resolver_match.view_name == 'home' %} bg-gray-800/50 border-l-2 border-amber-500 pl-3 {% endif %}">
+                                <span class="w-2 h-2 bg-amber-500 rounded-full mr-3 group-hover:scale-125 transition-transform"></span>
+                                Home
+                            </a>
+                        </li>
+                        
+                        <!-- About -->
+                        <li class="text-left">
+                            <a href="{% url 'about' %}" 
+                               class="hover-lift flex items-center group p-2 rounded-lg hover:bg-gray-800 transition-all
+                               {% if request.resolver_match.view_name == 'about' %} bg-gray-800/50 border-l-2 border-amber-500 pl-3 {% endif %}">
+                                <span class="w-2 h-2 bg-amber-500 rounded-full mr-3 group-hover:scale-125 transition-transform"></span>
+                                About Us
+                            </a>
+                        </li>
+                        
+                        <!-- Services -->
+                        <li class="text-left">
+                            <a href="{% url 'services' %}" 
+                               class="hover-lift flex items-center group p-2 rounded-lg hover:bg-gray-800 transition-all
+                               {% if request.resolver_match.view_name == 'services' %} bg-gray-800/50 border-l-2 border-amber-500 pl-3 {% endif %}">
+                                <span class="w-2 h-2 bg-amber-500 rounded-full mr-3 group-hover:scale-125 transition-transform"></span>
+                                Our Services
+                            </a>
+                        </li>
+                        
+                        <!-- Contact -->
+                        <li class="text-left">
+                            <a href="{% url 'contact' %}" 
+                               class="hover-lift flex items-center group p-2 rounded-lg hover:bg-gray-800 transition-all
+                               {% if request.resolver_match.view_name == 'contact' %} bg-gray-800/50 border-l-2 border-amber-500 pl-3 {% endif %}">
+                                <span class="w-2 h-2 bg-amber-500 rounded-full mr-3 group-hover:scale-125 transition-transform"></span>
+                                Contact
+                            </a>
+                        </li>
+                        
+                        <!-- Careers -->
+                        <li class="text-left">
+                            <a href="{% url 'careers:home' %}" 
+                               class="hover-lift flex items-center group p-2 rounded-lg hover:bg-gray-800 transition-all
+                               {% if request.resolver_match.view_name == 'careers:home' %} bg-gray-800/50 border-l-2 border-amber-500 pl-3 {% endif %}">
+                                <span class="w-2 h-2 bg-amber-500 rounded-full mr-3 group-hover:scale-125 transition-transform"></span>
+                                Careers
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="fade-in delay-2 footer-left-aligned">
+                    <h4 class="text-lg font-semibold text-white mb-4 flex items-center justify-start">
+                        <span class="wave mr-2">📞</span> Contact Information
+                    </h4>
+                    <div class="space-y-3 text-sm">
+                        <div class="hover-lift flex items-start p-3 rounded-lg hover:bg-gray-800 transition-all text-left">
+                            <i class="fas fa-map-marker-alt text-amber-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span>Plot No. 12, Street No.1A, Czech Colony<br>Sanath Nagar, Hyderabad, Telangana-18</span>
+                        </div>
+                        <div class="hover-lift flex items-center p-3 rounded-lg hover:bg-gray-800 transition-all text-left">
+                            <i class="fas fa-phone text-amber-500 mr-3 flex-shrink-0"></i>
+                            <span>+91 9866669777</span>
+                        </div>
+                        <div class="hover-lift flex items-center p-3 rounded-lg hover:bg-gray-800 transition-all text-left">
+                            <i class="fas fa-envelope text-amber-500 mr-3 flex-shrink-0"></i>
+                            <span>jayaramaassociates.info@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="mt-4 pt-6 border-t border-gray-800 text-center fade-in delay-4">
+                <p>&copy; {% now "Y" %} JAYARAMA ASSOCIATES. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+        // Scroll-triggered animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.style.animationPlayState = 'running';
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You for Contacting Us</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .email-header {
+            background: linear-gradient(135deg, #ff6b00 0%, #ffa500 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .email-header h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: 700;
+        }
+        .email-header p {
+            margin: 10px 0 0;
+            opacity: 0.95;
+            font-size: 16px;
+        }
+        .email-body {
+            padding: 40px 30px;
+        }
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff6b00 0%, #ffa500 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 32px;
+        }
+        .submission-details {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid #e5e7eb;
+        }
+        .detail-row {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+        .detail-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .detail-label {
+            flex: 0 0 150px;
+            font-weight: 600;
+            color: #4b5563;
+            font-size: 15px;
+        }
+        .detail-value {
+            flex: 1;
+            color: #111827;
+            font-size: 15px;
+        }
+        .next-steps {
+            background: #fff7ed;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid #ff6b00;
+        }
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        .step-number {
+            background: #ff6b00;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .contact-info {
+            background: #f0f9ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .contact-info a {
+            color: #ff6b00;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b00 0%, #ffa500 100%);
+            color: white;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            margin: 20px 5px;
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 0, 0.3);
+        }
+        .email-footer {
+            background: #1f2937;
+            color: #d1d5db;
+            padding: 30px;
+            text-align: center;
+        }
+        .footer-links {
+            margin: 20px 0;
+        }
+        .footer-links a {
+            color: #ffa500;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 14px;
+        }
+        .social-icons {
+            margin: 20px 0;
+        }
+        .social-icons a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            color: white;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        .social-icons a:hover {
+            background: #ff6b00;
+            transform: translateY(-2px);
+        }
+        .disclaimer {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <div class="icon-circle">
+                ✨
+            </div>
+            <h1>Thank You, {{ full_name }}!</h1>
+            <p>We've received your inquiry and will contact you shortly</p>
+        </div>
+        
+        <div class="email-body">
+            <div class="welcome-section">
+                <h2 style="margin: 0 0 10px; color: #111827;">Welcome to {{ company_name }}</h2>
+                <p style="color: #6b7280; max-width: 500px; margin: 0 auto;">
+                    Thank you for choosing us for your property valuation needs. Our team is excited to assist you!
+                </p>
+            </div>
+            
+            <div class="submission-details">
+                <h3 style="margin: 0 0 20px; color: #111827; font-size: 18px;">📋 Submission Details</h3>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Reference ID:</div>
+                    <div class="detail-value">
+                        <strong>#{{ contact.id }}</strong>
+                        <span style="font-size: 12px; color: #6b7280; margin-left: 10px;">Submitted on {{ submission_date }}</span>
+                    </div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Property Type:</div>
+                    <div class="detail-value">{{ contact.get_property_type_display }}</div>
+                </div>
+                
+                {% if contact.description %}
+                <div class="detail-row">
+                    <div class="detail-label">Your Message:</div>
+                    <div class="detail-value">{{ contact.description|linebreaks }}</div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="next-steps">
+                <h3 style="margin: 0 0 20px; color: #111827; font-size: 18px;">📅 What Happens Next?</h3>
+                
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div>
+                        <strong style="color: #111827; display: block;">Initial Contact</strong>
+                        <p style="margin: 5px 0 0; color: #4b5563; font-size: 14px;">
+                            Our expert will contact you within <strong>{{ response_time }}</strong> to discuss your requirements
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div>
+                        <strong style="color: #111827; display: block;">Property Assessment</strong>
+                        <p style="margin: 5px 0 0; color: #4b5563; font-size: 14px;">
+                            We'll conduct a detailed analysis based on your property details
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div>
+                        <strong style="color: #111827; display: block;">Detailed Valuation Report</strong>
+                        <p style="margin: 5px 0 0; color: #4b5563; font-size: 14px;">
+                            Receive a comprehensive valuation report with market insights
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-info">
+                <h4 style="margin: 0 0 15px; color: #111827;">Need Immediate Assistance?</h4>
+                <p style="margin: 0 0 10px; color: #4b5563;">
+                    <strong>📞 Call Us:</strong> <a href="tel:{{ company_phone }}">{{ company_phone }}</a>
+                </p>
+                <p style="margin: 0; color: #4b5563;">
+                    <strong>✉️ Email:</strong> <a href="mailto:{{ company_email }}">{{ company_email }}</a>
+                </p>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="tel:{{ company_phone }}" class="cta-button">
+                    📞 Call Now
+                </a>
+                <a href="mailto:{{ company_email }}" class="cta-button" style="background: linear-gradient(135deg, #1f2937 0%, #374151 100%);">
+                    ✉️ Email Us
+                </a>
+            </div>
+        </div>
+        
+        <div class="email-footer">
+            <div style="margin-bottom: 20px;">
+                <h3 style="margin: 0; color: white; font-size: 20px;">{{ company_name }}</h3>
+                <p style="margin: 5px 0 0; color: #d1d5db; font-size: 14px;">Professional Property Valuation Services</p>
+            </div>
+            
+            <div class="footer-links">
+                <a href="{{ site_url }}">Home</a>
+                <a href="{{ site_url }}/services">Services</a>
+                <a href="{{ site_url }}/about">About Us</a>
+                <a href="{{ site_url }}/contact">Contact</a>
+            </div>
+            
+            <div class="social-icons">
+                <a href="#" title="Facebook">f</a>
+                <a href="#" title="Twitter">t</a>
+                <a href="#" title="Instagram">ig</a>
+                <a href="#" title="LinkedIn">in</a>
+            </div>
+            
+            <div class="disclaimer">
+                <p>This email was sent to {{ contact.email }} because you submitted a contact form on our website.</p>
+                <p>If you did not initiate this request, please ignore this email or contact us immediately.</p>
+                <p>© {% now "Y" %} {{ company_name }}. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

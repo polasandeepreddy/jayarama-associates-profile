@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Mobile-first viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <title>JAYARAMA ASSOCIATES | Professional Property Valuation</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'images/JAYARAMA LOGO2.png' %}">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                container: {
+                    center: true,
+                    padding: {
+                        DEFAULT: '1rem',
+                        sm: '1.5rem',
+                        lg: '2rem',
+                        xl: '2.5rem',
+                        '2xl': '3rem',
+                    },
+                },
+                extend: {
+                    colors: {
+                        amber: {
+                            50: '#fffbeb',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-white text-gray-800 antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    {% include 'components/navigation.html' %}
+
+    <!-- Main Content -->
+    <main class="w-full min-h-screen">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    {% include 'components/footer.html' %}
+
+    <!-- Global Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+
+            /* Mobile Menu */
+            const menuBtn = document.getElementById('mobile-menu-button');
+            const menu = document.getElementById('mobile-menu');
+
+            if (menuBtn && menu) {
+                menuBtn.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
+                });
+            }
+
+            /* Contact Form UX */
+            const form = document.getElementById('contact-form');
+            if (form) {
+                form.addEventListener('submit', e => {
+                    e.preventDefault();
+
+                    const btn = form.querySelector('button[type="submit"]');
+                    const original = btn.innerHTML;
+
+                    btn.innerHTML = "Message Sent ✓";
+                    btn.disabled = true;
+
+                    setTimeout(() => {
+                        form.reset();
+                        btn.innerHTML = original;
+                        btn.disabled = false;
+                        lucide.createIcons();
+                    }, 3000);
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

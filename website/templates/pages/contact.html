@@ -1,0 +1,1008 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                animation: {
+                    'float': 'float 6s ease-in-out infinite',
+                    'pulse-3d': 'pulse3d 4s ease-in-out infinite',
+                    'slide-up': 'slideUp 0.8s ease-out forwards',
+                    'fade-in': 'fadeIn 1s ease-out forwards',
+                    'gradient': 'gradient 8s ease infinite',
+                    'shimmer': 'shimmer 2s infinite',
+                    'wave': 'wave 8s ease-in-out infinite',
+                    'neon': 'neon 1.5s ease-in-out infinite alternate',
+                    'confetti-fall': 'confettiFall 3s linear forwards'
+                },
+                keyframes: {
+                    float: { 
+                        '0%, 100%': { transform: 'translateY(0) rotate(0deg)' }, 
+                        '50%': { transform: 'translateY(-15px) rotate(5deg)' } 
+                    },
+                    pulse3d: { 
+                        '0%, 100%': { transform: 'scale(1) rotateY(0deg)' }, 
+                        '50%': { transform: 'scale(1.05) rotateY(10deg)' } 
+                    },
+                    slideUp: {
+                        '0%': { opacity: '0', transform: 'translateY(30px)' },
+                        '100%': { opacity: '1', transform: 'translateY(0)' }
+                    },
+                    fadeIn: {
+                        '0%': { opacity: '0' },
+                        '100%': { opacity: '1' }
+                    },
+                    gradient: { 
+                        '0%, 100%': { 'background-position': '0% 50%' }, 
+                        '50%': { 'background-position': '100% 50%' } 
+                    },
+                    shimmer: { 
+                        '0%': { 'background-position': '-1000px 0' }, 
+                        '100%': { 'background-position': '1000px 0' } 
+                    },
+                    wave: {
+                        '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+                        '25%': { transform: 'translateY(-10px) rotate(2deg)' },
+                        '75%': { transform: 'translateY(5px) rotate(-2deg)' }
+                    },
+                    neon: {
+                        '0%': { 'text-shadow': '0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff6b00, 0 0 20px #ff6b00' },
+                        '100%': { 'text-shadow': '0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff6b00, 0 0 40px #ff6b00' }
+                    },
+                    confettiFall: {
+                        '0%': { transform: 'translateY(0) rotate(0deg)', opacity: '1' },
+                        '100%': { transform: 'translateY(100vh) rotate(720deg)', opacity: '0' }
+                    }
+                },
+                backgroundImage: {
+                    'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                }
+            }
+        }
+    }
+</script>
+
+<style>
+    /* 3D card/button helpers */
+    .card-3d {
+        transform-style: preserve-3d;
+        perspective: 1000px;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        background: linear-gradient(145deg, #ffffff, #f5f5f5);
+        box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+        border-radius: 1.5rem;
+    }
+    .card-3d:hover {
+        transform: rotateY(8deg) rotateX(5deg) translateY(-10px);
+        box-shadow: 25px 25px 60px #d1d1d1, -25px -25px 60px #ffffff;
+    }
+
+    .btn-3d {
+        transform-style: preserve-3d;
+        transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    .btn-3d::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.7s ease;
+    }
+    .btn-3d:hover::before {
+        left: 100%;
+    }
+    .btn-3d:hover { transform: translateY(-5px) scale(1.05); }
+    .btn-3d:active { transform: translateY(0) scale(0.98); }
+
+    /* Text gradient */
+    .text-gradient {
+        background: linear-gradient(135deg, #ff6b00 0%, #ffa500 25%, #ffd700 50%, #ffa500 75%, #ff6b00 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradient 8s linear infinite;
+    }
+
+    /* Form styles */
+    .form-input {
+        transition: all 0.4s ease;
+        border: 2px solid #e5e7eb;
+        background: linear-gradient(135deg, #f8fafc, #ffffff);
+    }
+    .form-input:focus {
+        border-color: #ff6b00;
+        box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.15);
+        background: linear-gradient(135deg, #ffffff, #fff7ed);
+        transform: translateY(-2px);
+    }
+    .form-input.error {
+        border-color: #ef4444;
+        box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+        animation: shake 0.5s ease-in-out;
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+
+    /* Floating label styles */
+    .form-label {
+        transition: all 0.4s ease;
+        background: linear-gradient(135deg, #f8fafc, #ffffff);
+        padding: 0 8px;
+        border-radius: 4px;
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        color: #6b7280;
+        pointer-events: none;
+        font-size: 0.875rem;
+    }
+    .form-input:focus + .form-label,
+    .form-input:not(:placeholder-shown) + .form-label {
+        transform: translateY(-28px) scale(0.9);
+        color: #ff6b00;
+        font-weight: 600;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    /* Success/Error messages */
+    .alert-success {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        animation: slideUp 0.5s ease-out forwards;
+    }
+    .alert-error {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        animation: slideUp 0.5s ease-out forwards, shake 0.5s ease-in-out;
+    }
+
+    /* Loading spinner */
+    .spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s ease-in-out infinite;
+    }
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* Glass morphism */
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Hover lift effect */
+    .hover-lift {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-lift:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    /* Gradient border */
+    .gradient-border {
+        position: relative;
+        border-radius: 12px;
+        background: linear-gradient(white, white) padding-box,
+                    linear-gradient(135deg, #ff6b00, #ffa500, #ffd700) border-box;
+        border: 3px solid transparent;
+    }
+    
+    /* Success gradient border */
+    .gradient-border-success {
+        position: relative;
+        border-radius: 12px;
+        background: linear-gradient(white, white) padding-box,
+                    linear-gradient(135deg, #10b981, #059669, #047857) border-box;
+        border: 3px solid transparent;
+        animation: pulse3d 2s ease-in-out;
+    }
+
+    /* Shimmer effect */
+    .shimmer-effect {
+        background: linear-gradient(90deg, 
+            rgba(255,255,255,0) 0%, 
+            rgba(255,255,255,0.3) 50%, 
+            rgba(255,255,255,0) 100%);
+        background-size: 1000px 100%;
+        animation: shimmer 2s infinite;
+    }
+
+    /* Particle background */
+    .particle-bg {
+        position: relative;
+        overflow: hidden;
+    }
+    .particle-bg::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: 
+            radial-gradient(circle at 20% 80%, rgba(255, 107, 0, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 165, 0, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+        z-index: -1;
+    }
+
+    /* Floating element animation */
+    .floating-element {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    /* Scroll animation helpers */
+    .animate-on-scroll { 
+        opacity: 0; 
+        transform: translateY(40px) scale(0.95); 
+        transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); 
+    }
+    .animate-on-scroll.animated { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+    }
+    
+    /* Success message at top of form */
+    .alert-message {
+        position: relative;
+        z-index: 10;
+        margin-bottom: 1.5rem;
+        border-radius: 0.75rem;
+    }
+    
+    /* Success checkmark animation */
+    .checkmark-circle {
+        animation: checkmark-circle 0.6s ease-in-out;
+    }
+    
+    @keyframes checkmark-circle {
+        0% { transform: scale(0); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+    
+    /* Form success highlight */
+    .form-success-highlight {
+        animation: success-highlight 2s ease-in-out;
+    }
+    
+    @keyframes success-highlight {
+        0%, 100% { box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff; }
+        50% { box-shadow: 0 0 40px rgba(16, 185, 129, 0.3), 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff; }
+    }
+</style>
+
+<!-- ANIMATED BACKGROUND HERO -->
+<section class="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative overflow-hidden pt-20 particle-bg">
+
+    <!-- Animated Background Elements -->
+    <div class="absolute top-12 right-12 w-32 h-32 bg-gradient-to-br from-amber-500/20 to-orange-600/20 rounded-full floating-element shadow-2xl"></div>
+    <div class="absolute bottom-20 left-16 w-28 h-28 bg-gradient-to-br from-blue-500/20 to-cyan-600/20 rounded-full floating-element delay-400 shadow-xl"></div>
+    <div class="absolute top-1/3 left-1/4 w-20 h-20 bg-gradient-to-br from-purple-500/20 to-pink-600/20 rounded-full floating-element delay-200 shadow-lg"></div>
+
+    <!-- Floating particles -->
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute top-1/4 left-1/5 w-3 h-3 bg-white/30 rounded-full animate-float delay-300"></div>
+        <div class="absolute top-1/3 right-1/4 w-2 h-2 bg-amber-300/40 rounded-full animate-float delay-500"></div>
+        <div class="absolute bottom-1/4 left-1/3 w-4 h-4 bg-orange-400/30 rounded-full animate-float delay-700"></div>
+    </div>
+
+    <!-- Animated gradient orb -->
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-amber-500/10 via-orange-600/10 to-yellow-500/10 rounded-full blur-3xl animate-pulse"></div>
+
+    <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+        <!-- Animated title with gradient -->
+        <div class="relative mb-8">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 animate__animated animate__fadeInDown text-gradient tracking-tight">
+                Contact Us
+            </h1>
+            <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent shimmer-effect rounded-full"></div>
+        </div>
+
+        <!-- Animated subtitle -->
+        <div class="animate__animated animate__fadeInUp animate__delay-1s">
+            <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8 font-light">
+                Expert property valuations. Fast responses. Professional advice.
+                <span class="text-amber-300 font-semibold">We're here to help you make informed decisions.</span>
+            </p>
+        </div>
+
+        <!-- Animated CTA -->
+        <div class="animate__animated animate__fadeInUp animate__delay-2s mt-12">
+            <a href="#contact-form" 
+               class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-bold rounded-full hover-lift btn-3d text-lg group shadow-2xl">
+                <span>Start Conversation</span>
+                <i class="fas fa-chevron-down ml-3 group-hover:translate-y-1 transition-transform duration-300"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT FORM SECTION -->
+<section id="contact-form" class="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+    <!-- Background pattern -->
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+
+    <div class="max-w-4xl mx-auto px-4 relative z-10">
+        <!-- Section header with animation -->
+        <div class="text-center mb-12 animate-on-scroll">
+            <div class="inline-block mb-4">
+                <div class="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center animate-pulse-3d mx-auto">
+                    <i class="fas fa-comments text-xl text-white"></i>
+                </div>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Let's Start a <span class="text-gradient">Conversation</span>
+            </h2>
+            <p class="text-lg text-gray-600 max-w-xl mx-auto leading-relaxed">
+                Share your details with us, and our expert team will connect with you shortly
+            </p>
+        </div>
+
+        <!-- Main Contact Form Card -->
+        <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl card-3d gradient-border animate-on-scroll form-success-highlight" id="formCard">
+            
+            <!-- Success Message Container (will be inserted here dynamically) -->
+            <div id="formAlertContainer" class="mb-6"></div>
+            
+            <div class="flex items-center mb-8">
+                <div class="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-lg flex items-center justify-center mr-4 shadow-md">
+                    <i class="fas fa-envelope-open-text text-white text-xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900">Send Your Inquiry</h3>
+            </div>
+            
+            <!-- Alert Messages Container -->
+            <div id="alertContainer" class="mb-6"></div>
+            
+            <form id="contactForm" method="POST" action="{% url 'contact_submit' %}" class="space-y-6">
+                {% csrf_token %}
+                
+                <!-- First Name and Last Name -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="relative group">
+                        <input type="text" name="first_name" id="first_name" 
+                               class="form-input w-full px-5 py-4 rounded-lg text-gray-800 placeholder-transparent focus:outline-none peer transition-all duration-400"
+                               placeholder="John"
+                               required>
+                        <label for="first_name" class="form-label">
+                            <span class="flex items-center">
+                                <i class="fas fa-user mr-2 text-xs"></i>
+                                First Name *
+                            </span>
+                        </label>
+                        <div class="text-red-500 text-xs mt-1 hidden flex items-center" id="first_name_error">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="relative group">
+                        <input type="text" name="last_name" id="last_name" 
+                               class="form-input w-full px-5 py-4 rounded-lg text-gray-800 placeholder-transparent focus:outline-none peer transition-all duration-400"
+                               placeholder="Doe"
+                               required>
+                        <label for="last_name" class="form-label">
+                            <span class="flex items-center">
+                                <i class="fas fa-user mr-2 text-xs"></i>
+                                Last Name *
+                            </span>
+                        </label>
+                        <div class="text-red-500 text-xs mt-1 hidden flex items-center" id="last_name_error">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone and Email -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="relative group">
+                        <input type="tel" name="phone" id="phone" 
+                               class="form-input w-full px-5 py-4 rounded-lg text-gray-800 placeholder-transparent focus:outline-none peer transition-all duration-400"
+                               placeholder="9876543210"
+                               pattern="[0-9]{10}" 
+                               title="Please enter a valid 10-digit phone number"
+                               required>
+                        <label for="phone" class="form-label">
+                            <span class="flex items-center">
+                                <i class="fas fa-phone mr-2 text-xs"></i>
+                                Phone Number *
+                            </span>
+                        </label>
+                        <div class="text-red-500 text-xs mt-1 hidden flex items-center" id="phone_error">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="relative group">
+                        <input type="email" name="email" id="email" 
+                               class="form-input w-full px-5 py-4 rounded-lg text-gray-800 placeholder-transparent focus:outline-none peer transition-all duration-400"
+                               placeholder="john@example.com"
+                               required>
+                        <label for="email" class="form-label">
+                            <span class="flex items-center">
+                                <i class="fas fa-envelope mr-2 text-xs"></i>
+                                Email Address *
+                            </span>
+                        </label>
+                        <div class="text-red-500 text-xs mt-1 hidden flex items-center" id="email_error">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property Type -->
+                <div class="relative group">
+                    <select name="property_type" id="property_type" 
+                            class="form-input w-full px-5 py-4 rounded-lg text-gray-800 focus:outline-none appearance-none bg-white"
+                            required>
+                        <option value="">Choose property type...</option>
+                        <option value="Residential">Residential</option>
+                        <option value="Commercial">Commercial</option>
+                        <option value="Industrial">Industrial</option>
+                        <option value="Plot/Land">Plot/Land</option>
+                    </select>
+                    <label for="property_type" class="form-label">
+                        <span class="flex items-center">
+                            <i class="fas fa-home mr-2 text-xs"></i>
+                            Property Type *
+                        </span>
+                    </label>
+                    <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+
+                <!-- Property Description -->
+                <div class="relative group">
+                    <textarea name="description" id="description" 
+                              class="form-input w-full px-5 py-4 rounded-lg text-gray-800 placeholder-transparent focus:outline-none peer transition-all duration-400 h-32 resize-none"
+                              placeholder="Describe your property..."
+                              rows="3"></textarea>
+                    <label for="description" class="form-label">
+                        <span class="flex items-center">
+                            <i class="fas fa-file-alt mr-2 text-xs"></i>
+                            Property Details (Optional)
+                        </span>
+                    </label>
+                    <div class="absolute bottom-3 right-3 text-gray-400 text-xs">
+                        <span id="charCount">0</span>/500
+                    </div>
+                </div>
+
+                <!-- Terms Agreement -->
+                <div class="flex items-start space-x-3 p-4 bg-amber-50 rounded-lg border border-amber-100">
+                    <input type="checkbox" id="terms_accepted" name="terms_accepted" 
+                           class="w-5 h-5 text-amber-600 border-gray-300 rounded focus:ring-2 focus:ring-amber-500 mt-0.5 flex-shrink-0">
+                    <label for="terms_accepted" class="text-gray-700 text-sm">
+                        <span class="font-semibold text-gray-900">I agree to receive communications</span> from our team regarding my inquiry. Your information is secure and will not be shared with third parties.
+                    </label>
+                </div>
+                <div class="text-red-500 text-xs mt-1 hidden flex items-center" id="terms_accepted_error">
+                    <i class="fas fa-exclamation-circle mr-1"></i>
+                    <span></span>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitBtn" 
+                        class="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-semibold py-5 px-6 rounded-lg btn-3d transition-all duration-300 flex items-center justify-center group shadow-lg relative overflow-hidden text-lg">
+                    <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
+                    <span id="submitText" class="relative z-10">Send Inquiry</span>
+                    <div id="submitSpinner" class="spinner ml-3 hidden relative z-10"></div>
+                    <i class="fas fa-paper-plane ml-3 relative z-10 group-hover:translate-x-1 transition-transform duration-300"></i>
+                </button>
+
+                <!-- Form note -->
+                <p class="text-center text-gray-500 text-sm mt-4">
+                    <i class="fas fa-lock mr-2"></i>
+                    Your information is protected with 256-bit SSL encryption
+                </p>
+            </form>
+        </div>
+
+        <!-- Additional Info Cards -->
+        <div class="grid md:grid-cols-2 gap-6 mt-12 animate-on-scroll">
+            <!-- Response Time Card -->
+            <div class="bg-gradient-to-br from-gray-900 to-slate-800 p-6 rounded-xl text-white shadow-xl hover-lift transition-all duration-500">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-lg flex items-center justify-center mr-3 shadow-md">
+                        <i class="fas fa-bolt text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Quick Response</h3>
+                </div>
+                <ul class="space-y-3">
+                    <li class="flex items-center p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors duration-300 group">
+                        <div class="w-8 h-8 bg-amber-500/20 rounded flex items-center justify-center mr-3 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-clock text-amber-400 text-sm"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm">Within 2 Hours</div>
+                            <div class="text-gray-300 text-xs">Initial response time</div>
+                        </div>
+                    </li>
+                    <li class="flex items-center p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors duration-300 group">
+                        <div class="w-8 h-8 bg-green-500/20 rounded flex items-center justify-center mr-3 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-headset text-green-400 text-sm"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm">24/7 Priority Support</div>
+                            <div class="text-gray-300 text-xs">For premium clients</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contact Info Card -->
+            <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover-lift">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mr-3 shadow-md">
+                        <i class="fas fa-headset text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Contact Info</h3>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300 group">
+                        <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-phone text-amber-600"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-900">Call Us</div>
+                            <div class="text-gray-600 text-sm">+91 9866669777</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-300 group">
+                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-envelope text-blue-600"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-900">Email Us</div>
+                            <div class="text-gray-600 text-sm">jayaramaassociates.info@gmail.com</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="py-16 bg-gradient-to-r from-gray-900 to-black relative overflow-hidden">
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z" fill="%239C92AC" fill-opacity="0.05" fill-rule="evenodd"/%3E%3C/svg%3E')]"></div>
+    
+    <div class="max-w-3xl mx-auto px-4 text-center relative z-10">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+            Ready to Transform Your Property Vision?
+        </h2>
+        <p class="text-lg text-gray-300 mb-8 max-w-xl mx-auto">
+            Join thousands of satisfied clients who have trusted us with their property valuation needs
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#contact-form" 
+               class="px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold rounded-full hover-lift btn-3d group shadow-xl">
+                <span>Start Free Consultation</span>
+                <i class="fas fa-calendar-check ml-2 group-hover:rotate-12 transition-transform duration-300"></i>
+            </a>
+            <a href="tel:+919866669777" 
+               class="px-8 py-4 glass-effect text-white font-bold rounded-full hover-lift transition-all duration-300 group border border-white/20">
+                <span>Call Now</span>
+                <i class="fas fa-phone ml-2 group-hover:scale-110 transition-transform duration-300"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Enhanced Form Validation and Submission
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('contactForm');
+        const formCard = document.getElementById('formCard');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+        const submitSpinner = document.getElementById('submitSpinner');
+        const alertContainer = document.getElementById('alertContainer');
+        const formAlertContainer = document.getElementById('formAlertContainer');
+        const charCount = document.getElementById('charCount');
+        const textarea = document.getElementById('description');
+        
+        // Character counter for textarea
+        if (textarea && charCount) {
+            textarea.addEventListener('input', function() {
+                charCount.textContent = this.value.length;
+                if (this.value.length > 500) {
+                    charCount.classList.add('text-red-500');
+                } else {
+                    charCount.classList.remove('text-red-500');
+                }
+            });
+        }
+        
+        // Real-time form validation
+        const inputs = form.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+            
+            input.addEventListener('input', function() {
+                clearError(this);
+            });
+        });
+        
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Validate all fields
+            let isValid = true;
+            inputs.forEach(input => {
+                if (!validateField(input)) {
+                    isValid = false;
+                }
+            });
+            
+            if (!isValid) {
+                // Add shake animation to invalid fields
+                document.querySelectorAll('.form-input.error').forEach(input => {
+                    input.style.animation = 'shake 0.5s ease-in-out';
+                    setTimeout(() => {
+                        input.style.animation = '';
+                    }, 500);
+                });
+                return;
+            }
+            
+            // Show loading state with enhanced animation
+            submitText.textContent = 'Sending...';
+            submitSpinner.classList.remove('hidden');
+            submitBtn.disabled = true;
+            submitBtn.classList.add('cursor-not-allowed', 'opacity-90');
+            
+            // Create form data
+            const formData = new FormData(form);
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Show success animation
+                    submitBtn.classList.remove('from-amber-600', 'to-orange-600', 'hover:from-amber-700', 'hover:to-orange-700');
+                    submitBtn.classList.add('from-green-500', 'to-emerald-600');
+                    submitText.textContent = 'Message Sent!';
+                    
+                    // Create confetti effect
+                    createConfetti();
+                    
+                    // Show success message at the TOP of the form
+                    showAlert('🎉 Your inquiry has been sent successfully! We\'ll contact you within 2 hours.', 'success', 'form');
+                    
+                    // Highlight the form with success animation
+                    highlightFormSuccess();
+                    
+                    // Reset form after delay
+                    setTimeout(() => {
+                        form.reset();
+                        if (charCount) charCount.textContent = '0';
+                        
+                        // Reset labels position
+                        inputs.forEach(input => {
+                            const label = input.previousElementSibling;
+                            if (label && label.classList.contains('form-label')) {
+                                label.style.transform = 'none';
+                                label.style.color = '#6b7280';
+                            }
+                        });
+                        
+                        // Reset button state
+                        submitBtn.classList.remove('from-green-500', 'to-emerald-600');
+                        submitBtn.classList.add('from-amber-600', 'to-orange-600', 'hover:from-amber-700', 'hover:to-orange-700');
+                        submitText.textContent = 'Send Another Inquiry';
+                        submitSpinner.classList.add('hidden');
+                        submitBtn.disabled = false;
+                        submitBtn.classList.remove('cursor-not-allowed', 'opacity-90');
+                    }, 3000);
+                    
+                } else {
+                    throw new Error(data.message || 'Submission failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                
+                // Show error animation
+                submitBtn.classList.remove('from-amber-600', 'to-orange-600', 'hover:from-amber-700', 'hover:to-orange-700');
+                submitBtn.classList.add('from-red-500', 'to-rose-600');
+                submitText.textContent = 'Failed to Send';
+                
+                showAlert(`❌ ${error.message || 'There was an error sending your message. Please try again or contact us directly.'}`, 'error');
+                
+                setTimeout(() => {
+                    submitBtn.classList.remove('from-red-500', 'to-rose-600');
+                    submitBtn.classList.add('from-amber-600', 'to-orange-600', 'hover:from-amber-700', 'hover:to-orange-700');
+                    submitText.textContent = 'Try Again';
+                    submitSpinner.classList.add('hidden');
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('cursor-not-allowed', 'opacity-90');
+                }, 2000);
+            }
+        });
+        
+        function validateField(field) {
+            const value = field.value.trim();
+            let isValid = true;
+            let errorMessage = '';
+            
+            switch(field.id) {
+                case 'first_name':
+                    if (!value) {
+                        errorMessage = 'First name is required';
+                        isValid = false;
+                    } else if (value.length < 2) {
+                        errorMessage = 'First name must be at least 2 characters';
+                        isValid = false;
+                    }
+                    break;
+                    
+                case 'last_name':
+                    if (!value) {
+                        errorMessage = 'Last name is required';
+                        isValid = false;
+                    }
+                    break;
+                    
+                case 'phone':
+                    const phoneRegex = /^[0-9]{10}$/;
+                    if (!phoneRegex.test(value)) {
+                        errorMessage = 'Please enter a valid 10-digit phone number';
+                        isValid = false;
+                    }
+                    break;
+                    
+                case 'email':
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(value)) {
+                        errorMessage = 'Please enter a valid email address';
+                        isValid = false;
+                    }
+                    break;
+                    
+                case 'property_type':
+                    if (!value) {
+                        errorMessage = 'Property type is required';
+                        isValid = false;
+                    }
+                    break;
+                    
+                case 'description':
+                    if (value.length > 500) {
+                        errorMessage = 'Description must be less than 500 characters';
+                        isValid = false;
+                    }
+                    break;
+                    
+                case 'terms_accepted':
+                    if (!field.checked) {
+                        errorMessage = 'You must agree to the terms and conditions';
+                        isValid = false;
+                    }
+                    break;
+            }
+            
+            if (!isValid) {
+                showError(field, errorMessage);
+            } else {
+                clearError(field);
+                // Add success indicator
+                field.classList.add('border-green-500');
+                setTimeout(() => {
+                    field.classList.remove('border-green-500');
+                }, 2000);
+            }
+            
+            return isValid;
+        }
+        
+        function showError(input, message) {
+            input.classList.add('error', 'border-red-500');
+            input.classList.remove('border-green-500');
+            const errorElement = document.getElementById(`${input.id}_error`);
+            if (errorElement) {
+                errorElement.innerHTML = `<i class="fas fa-exclamation-circle mr-1"></i><span>${message}</span>`;
+                errorElement.classList.remove('hidden');
+                
+                // Animate error message
+                errorElement.style.animation = 'slideUp 0.3s ease-out';
+                setTimeout(() => {
+                    errorElement.style.animation = '';
+                }, 300);
+            }
+        }
+        
+        function clearError(input) {
+            input.classList.remove('error', 'border-red-500');
+            const errorElement = document.getElementById(`${input.id}_error`);
+            if (errorElement) {
+                errorElement.classList.add('hidden');
+            }
+        }
+        
+        function showAlert(message, type, position = 'container') {
+            // Remove existing alerts
+            const existingAlerts = document.querySelectorAll('.alert-message');
+            existingAlerts.forEach(alert => alert.remove());
+            
+            // Determine where to place the alert
+            let targetContainer;
+            if (position === 'form') {
+                // Use the formAlertContainer at the top of the form
+                targetContainer = formAlertContainer;
+            } else {
+                targetContainer = alertContainer;
+            }
+            
+            // Create alert element
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert-message p-4 rounded-xl text-white mb-6 shadow-xl transform transition-all duration-500 ${type === 'success' ? 'alert-success' : 'alert-error'} animate__animated animate__fadeInDown`;
+            alertDiv.innerHTML = `
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center mr-3 checkmark-circle">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} text-lg"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-bold text-base mb-0.5">${type === 'success' ? 'Success!' : 'Error!'}</div>
+                        <div class="text-sm">${message}</div>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" class="ml-3 text-white/80 hover:text-white transition-opacity duration-200">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            // Insert at the top of the target container
+            targetContainer.appendChild(alertDiv);
+            
+            // Scroll to the alert if it's at the top of the form
+            if (position === 'form') {
+                setTimeout(() => {
+                    formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+            
+            // Remove alert after 5 seconds
+            setTimeout(() => {
+                if (alertDiv.parentElement) {
+                    alertDiv.classList.add('animate__fadeOutUp');
+                    setTimeout(() => {
+                        if (alertDiv.parentElement) {
+                            alertDiv.remove();
+                        }
+                    }, 500);
+                }
+            }, 5000);
+        }
+        
+        function createConfetti() {
+            const colors = ['#ff6b00', '#ffa500', '#ffd700', '#ff6b6b', '#4ecdc4', '#10b981'];
+            const confettiCount = 50;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.cssText = `
+                    position: fixed;
+                    width: 10px;
+                    height: 10px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    top: -20px;
+                    left: ${Math.random() * 100}vw;
+                    border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+                    animation: confetti-fall ${1 + Math.random() * 2}s linear forwards;
+                    z-index: 9999;
+                `;
+                
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
+        
+        function highlightFormSuccess() {
+            if (formCard) {
+                // Add success border and pulse animation
+                formCard.classList.add('gradient-border-success');
+                formCard.classList.add('form-success-highlight');
+                
+                // Remove success styles after animation
+                setTimeout(() => {
+                    formCard.classList.remove('gradient-border-success');
+                }, 2000);
+                
+                setTimeout(() => {
+                    formCard.classList.remove('form-success-highlight');
+                }, 4000);
+            }
+        }
+        
+        // Initialize labels for pre-filled values
+        inputs.forEach(input => {
+            if (input.value) {
+                const label = input.previousElementSibling;
+                if (label && label.classList.contains('form-label')) {
+                    label.style.transform = 'translateY(-28px) scale(0.9)';
+                    label.style.color = '#ff6b00';
+                }
+            }
+        });
+    });
+    
+    // Scroll animation trigger
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    if ('IntersectionObserver' in window && animatedElements.length) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        animatedElements.forEach(element => observer.observe(element));
+    } else {
+        animatedElements.forEach(el => el.classList.add('animated'));
+    }
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}

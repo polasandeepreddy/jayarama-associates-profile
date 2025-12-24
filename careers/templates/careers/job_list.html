@@ -1,0 +1,447 @@
+{% extends 'careers/base.html' %}
+{% load static %}
+
+{% block careers_content %}
+<!-- Job List Header -->
+<section class="py-12 bg-gradient-to-br from-gray-900 to-slate-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">Current Job Openings</h1>
+                <p class="text-gray-300 max-w-3xl">
+                    Explore exciting career opportunities at JAYARAMA ASSOCIATES. Join our team of property valuation experts.
+                </p>
+            </div>
+            <div class="text-amber-500 font-semibold text-lg">
+                {{ jobs|length }} position{{ jobs|length|pluralize }} available
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Search & Filters -->
+<section class="py-8 bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <form id="jobFilterForm" method="GET" action="{% url 'careers:job_list' %}" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Keywords</label>
+                    <input type="text" name="keyword" value="{{ request.GET.keyword }}" 
+                           placeholder="Job title, skills"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                    <input type="text" name="location" value="{{ request.GET.location }}"
+                           placeholder="City or state"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Job Type</label>
+                    <select name="job_type" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                        <option value="">All Types</option>
+                        <option value="full_time" {% if request.GET.job_type == 'full_time' %}selected{% endif %}>Full Time</option>
+                        <option value="part_time" {% if request.GET.job_type == 'part_time' %}selected{% endif %}>Part Time</option>
+                        <option value="contract" {% if request.GET.job_type == 'contract' %}selected{% endif %}>Contract</option>
+                        <option value="internship" {% if request.GET.job_type == 'internship' %}selected{% endif %}>Internship</option>
+                        <option value="remote" {% if request.GET.job_type == 'remote' %}selected{% endif %}>Remote</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Experience</label>
+                    <select name="experience_level" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                        <option value="">All Levels</option>
+                        <option value="entry" {% if request.GET.experience_level == 'entry' %}selected{% endif %}>Entry Level</option>
+                        <option value="mid" {% if request.GET.experience_level == 'mid' %}selected{% endif %}>Mid Level</option>
+                        <option value="senior" {% if request.GET.experience_level == 'senior' %}selected{% endif %}>Senior Level</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                    <select name="category" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                        <option value="">All Categories</option>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"i" %}selected{% endif %}>
+                            {{ category.name }} ({{ category.job_count }})
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-between items-center">
+                <div class="flex gap-4">
+                    <button type="submit" 
+                            class="px-6 py-2 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg transition-all flex items-center">
+                        <i data-lucide="search" class="mr-2 h-5 w-5"></i>
+                        Search Jobs
+                    </button>
+                    
+                    {% if request.GET %}
+                    <a href="{% url 'careers:job_list' %}" 
+                       class="px-6 py-2 border border-gray-300 hover:border-gray-400 text-gray-700 font-medium rounded-lg transition-all">
+                        Clear Filters
+                    </a>
+                    {% endif %}
+                </div>
+                
+                <div class="text-sm text-gray-600">
+                    Showing {{ jobs.start_index|default:1 }} - {{ jobs.end_index|default:jobs|length }} of {{ jobs.paginator.count|default:jobs|length }} results
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Job Listings -->
+<section class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Main Content -->
+            <div class="lg:w-2/3">
+                {% if jobs %}
+                <div id="jobsContainer" class="space-y-4">
+                    {% for job in jobs %}
+                    <div class="job-card bg-white rounded-xl border border-gray-200 hover:border-amber-300 shadow-sm overflow-hidden">
+                        <div class="p-6">
+                            <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <h3 class="text-xl font-semibold text-gray-900">
+                                            <a href="{% url 'careers:job_detail' job.id job.title|slugify %}" class="hover:text-amber-600">
+                                                {{ job.title }}
+                                            </a>
+                                        </h3>
+                                        {% if job.is_featured %}
+                                        <span class="px-2 py-1 bg-amber-100 text-amber-800 text-xs font-medium rounded-full">
+                                            Featured
+                                        </span>
+                                        {% endif %}
+                                        {% if job.remaining_days and job.remaining_days <= 7 %}
+                                        <span class="urgent-badge px-2 py-1 bg-red-100 text-red-800 text-xs font-medium rounded-full">
+                                            Closing Soon
+                                        </span>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4">
+                                        <div class="flex items-center">
+                                            <i data-lucide="building" class="h-4 w-4 mr-2 text-gray-400"></i>
+                                            <span>{{ job.department }}</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i data-lucide="map-pin" class="h-4 w-4 mr-2 text-gray-400"></i>
+                                            <span>{{ job.location }}</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i data-lucide="briefcase" class="h-4 w-4 mr-2 text-gray-400"></i>
+                                            <span>{{ job.get_job_type_display }}</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i data-lucide="award" class="h-4 w-4 mr-2 text-gray-400"></i>
+                                            <span>{{ job.get_experience_level_display }}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <p class="text-gray-600 mb-4 line-clamp-2">{{ job.short_description }}</p>
+                                    
+                                    <div class="flex flex-wrap items-center justify-between">
+                                        <div class="flex flex-wrap gap-2 mb-3 md:mb-0">
+                                            {% for skill in job.skills_required|slice:":3" %}
+                                            <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full">
+                                                {{ skill|cut:"," }}
+                                            </span>
+                                            {% endfor %}
+                                            {% if job.skills_required|length > 3 %}
+                                            <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
+                                                +{{ job.skills_required|slice:"3:"|length }} more
+                                            </span>
+                                            {% endif %}
+                                        </div>
+                                        
+                                        {% if job.show_salary and job.salary_range_min %}
+                                        <div class="px-3 py-1 bg-amber-50 text-amber-800 text-sm font-semibold rounded-lg">
+                                            {{ job.formatted_salary }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col sm:flex-row gap-3 md:w-48">
+                                    <a href="{% url 'careers:job_detail' job.id job.title|slugify %}" 
+                                       class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium rounded-lg text-center transition-all">
+                                        View Details
+                                    </a>
+                                    <a href="{% url 'careers:apply' job.id %}" 
+                                       class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg text-center transition-all">
+                                        Apply Now
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="px-6 py-3 bg-gray-50 border-t border-gray-100 flex justify-between items-center text-sm text-gray-600">
+                            <div class="flex items-center">
+                                <i data-lucide="calendar" class="h-4 w-4 mr-2"></i>
+                                <span>Posted: {{ job.posted_date|date:"M d, Y" }}</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                {% if job.application_deadline %}
+                                <div class="flex items-center">
+                                    <i data-lucide="clock" class="h-4 w-4 mr-2"></i>
+                                    <span>Closes: {{ job.application_deadline|date:"M d, Y" }}</span>
+                                </div>
+                                {% endif %}
+                                <div class="flex items-center">
+                                    <i data-lucide="eye" class="h-4 w-4 mr-2"></i>
+                                    <span>{{ job.views_count }} views</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Pagination -->
+                {% if jobs.has_other_pages %}
+                <div class="mt-12 flex justify-center">
+                    <nav class="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                        {% if jobs.has_previous %}
+                        <a href="?page={{ jobs.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" 
+                           class="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            <i data-lucide="chevron-left" class="h-5 w-5"></i>
+                        </a>
+                        {% endif %}
+                        
+                        {% for num in jobs.paginator.page_range %}
+                            {% if jobs.number == num %}
+                            <span class="relative inline-flex items-center px-4 py-2 border border-amber-500 bg-amber-50 text-sm font-medium text-amber-600">
+                                {{ num }}
+                            </span>
+                            {% elif num > jobs.number|add:'-3' and num < jobs.number|add:'3' %}
+                            <a href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" 
+                               class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                {{ num }}
+                            </a>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if jobs.has_next %}
+                        <a href="?page={{ jobs.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" 
+                           class="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            <i data-lucide="chevron-right" class="h-5 w-5"></i>
+                        </a>
+                        {% endif %}
+                    </nav>
+                </div>
+                {% endif %}
+                
+                {% else %}
+                <div class="text-center py-16 bg-white rounded-xl border border-gray-200">
+                    <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="search-x" class="h-12 w-12 text-gray-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-3">No jobs found</h3>
+                    <p class="text-gray-600 mb-8 max-w-md mx-auto">
+                        We couldn't find any jobs matching your criteria. Try adjusting your filters or check back later.
+                    </p>
+                    <div class="space-y-4">
+                        <a href="{% url 'careers:job_list' %}" 
+                           class="inline-flex items-center px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg transition-all">
+                            View All Jobs
+                        </a>
+                        <p class="text-gray-500 text-sm mt-4">
+                            Want to be notified when new jobs are posted?
+                            <a href="#" class="text-amber-600 hover:text-amber-700 font-medium">Set up job alerts</a>
+                        </p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="lg:w-1/3">
+                <!-- Job Categories -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <i data-lucide="folder-tree" class="h-5 w-5 mr-2 text-amber-600"></i>
+                        Job Categories
+                    </h3>
+                    <div class="space-y-3">
+                        {% for category in categories %}
+                        <a href="{% url 'careers:job_list' %}?category={{ category.id }}"
+                           class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-all group">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i data-lucide="{{ category.icon|default:'briefcase' }}" class="h-5 w-5 text-amber-600"></i>
+                                </div>
+                                <span class="font-medium text-gray-900 group-hover:text-amber-600">{{ category.name }}</span>
+                            </div>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-600 text-sm font-medium rounded-full">
+                                {{ category.job_count }}
+                            </span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Job Alerts -->
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl border border-amber-200 p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Get Job Alerts</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Be the first to know about new positions matching your interests.
+                    </p>
+                    <form id="jobAlertForm" method="POST" action="{% url 'careers:subscribe_alert' %}" class="space-y-3">
+                        {% csrf_token %}
+                        <input type="email" name="email" required 
+                               placeholder="Your email address"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                        <button type="submit" 
+                                class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all">
+                            Subscribe to Alerts
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Quick Apply Tips -->
+                <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl border border-blue-200 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <i data-lucide="zap" class="h-5 w-5 mr-2 text-blue-600"></i>
+                        Quick Apply Tips
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
+                                <i data-lucide="check" class="h-4 w-4 text-blue-600"></i>
+                            </div>
+                            <span class="text-sm text-gray-700">Update your resume with recent experience</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
+                                <i data-lucide="check" class="h-4 w-4 text-blue-600"></i>
+                            </div>
+                            <span class="text-sm text-gray-700">Tailor your cover letter for each application</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
+                                <i data-lucide="check" class="h-4 w-4 text-blue-600"></i>
+                            </div>
+                            <span class="text-sm text-gray-700">Highlight relevant skills from the job description</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
+                                <i data-lucide="check" class="h-4 w-4 text-blue-600"></i>
+                            </div>
+                            <span class="text-sm text-gray-700">Follow up after 1-2 weeks if you don't hear back</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-16 bg-gray-900 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-6">Can't Find the Right Role?</h2>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            We're always looking for talented individuals. Send us your resume and we'll contact you when a suitable position opens up.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'careers:about' %}" 
+               class="px-8 py-3 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg transition-all">
+                Learn About Our Culture
+            </a>
+            <a href="mailto:careers@jayaramaassociates.com" 
+               class="px-8 py-3 bg-white hover:bg-gray-100 text-gray-900 font-semibold rounded-lg transition-all">
+                Send Spontaneous Application
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+.line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Filter form submission with AJAX (progressive enhancement: will still submit normally)
+    const filterForm = document.getElementById('jobFilterForm');
+    if (filterForm) {
+        const inputs = filterForm.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.addEventListener('change', function() {
+                filterForm.submit();
+            });
+        });
+    }
+    
+    // Job alert form submission
+    const alertForm = document.getElementById('jobAlertForm');
+    if (alertForm) {
+        alertForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alertForm.reset();
+                    showNotification('success', data.message || 'Job alert subscription created!');
+                } else {
+                    showNotification('error', data.message || 'Please check your input.');
+                }
+            })
+            .catch(error => {
+                showNotification('error', 'An error occurred. Please try again.');
+            });
+        });
+    }
+    
+    function showNotification(type, message) {
+        const notification = document.createElement('div');
+        notification.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 translate-x-full ${type === 'success' ? 'bg-green-600' : 'bg-red-600'} text-white`;
+        notification.innerHTML = `
+            <div class="flex items-center">
+                <i data-lucide="${type === 'success' ? 'check-circle' : 'alert-circle'}" class="h-5 w-5 mr-3"></i>
+                <span>${message}</span>
+            </div>
+        `;
+        
+        document.body.appendChild(notification);
+        setTimeout(() => {
+            notification.classList.remove('translate-x-full');
+            notification.classList.add('translate-x-0');
+        }, 10);
+        
+        setTimeout(() => {
+            notification.classList.remove('translate-x-0');
+            notification.classList.add('translate-x-full');
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 5000);
+    }
+});
+</script>
+{% endblock %}

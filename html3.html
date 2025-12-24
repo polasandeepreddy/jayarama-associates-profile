@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You for Contacting Us</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #ff6b00, #ffa500);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .content {
+            padding: 40px;
+        }
+        .details-card {
+            background: #f8f9fa;
+            border-left: 4px solid #ff6b00;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        .highlight {
+            color: #ff6b00;
+            font-weight: bold;
+        }
+        .info-item {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        .whatsapp-button {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 5px;
+        }
+        .contact-button {
+            display: inline-block;
+            background: #ff6b00;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 5px;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 12px;
+            border-top: 1px solid #eee;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6b00;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Thank You for Contacting Us!</h1>
+            <p>Your property valuation inquiry has been received</p>
+        </div>
+        
+        <div class="content">
+            <div class="logo">🏠 Property Valuation</div>
+            
+            <p>Dear <span class="highlight">{{ full_name }}</span>,</p>
+            
+            <p>Thank you for reaching out to us regarding your <span class="highlight">{{ property_type }}</span> property valuation needs. We have received your inquiry and our expert team is reviewing it now.</p>
+            
+            <div class="details-card">
+                <h3 style="margin-top: 0; color: #333;">📋 Your Inquiry Details:</h3>
+                
+                <div class="info-item">
+                    <strong>Name:</strong> {{ full_name }}
+                </div>
+                <div class="info-item">
+                    <strong>Phone:</strong> {{ phone }}
+                </div>
+                <div class="info-item">
+                    <strong>Email:</strong> {{ email }}
+                </div>
+                <div class="info-item">
+                    <strong>Property Type:</strong> {{ property_type }}
+                </div>
+                {% if additional_info %}
+                <div class="info-item">
+                    <strong>Additional Information:</strong><br>
+                    {{ additional_info|linebreaks }}
+                </div>
+                {% endif %}
+                <div class="info-item">
+                    <strong>Submission Time:</strong> {{ timestamp }}
+                </div>
+            </div>
+            
+            <h3>⏱️ What Happens Next?</h3>
+            <ol>
+                <li>Our property valuation expert will review your details</li>
+                <li>We'll contact you within <span class="highlight">2 hours</span> to schedule a consultation</li>
+                <li>You'll receive a comprehensive property valuation report</li>
+                <li>We'll provide personalized recommendations</li>
+            </ol>
+            
+            <h3>📞 Quick Contact Options:</h3>
+            <div style="text-align: center; margin: 25px 0;">
+                <a href="https://wa.me/919876543210?text=Hi,%20I%20just%20submitted%20the%20contact%20form.%20My%20name%20is%20{{ full_name|urlencode }}" 
+                   class="whatsapp-button" target="_blank">
+                    💬 Chat on WhatsApp
+                </a>
+                <a href="tel:+919876543210" class="contact-button">
+                    📞 Call Us Now
+                </a>
+            </div>
+            
+            <p><strong>Office Hours:</strong> Monday - Saturday, 9:00 AM - 8:00 PM IST</p>
+            
+            <p>Best regards,<br>
+            <strong>The Property Valuation Team</strong></p>
+        </div>
+        
+        <div class="footer">
+            <p>© {% now "Y" %} Property Valuation Services. All rights reserved.</p>
+            <p>This is an automated message. Please do not reply to this email.</p>
+            <p>Mumbai, Maharashtra, India</p>
+        </div>
+    </div>
+</body>
+</html>

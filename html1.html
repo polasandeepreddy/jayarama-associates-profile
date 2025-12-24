@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers | Jayarama Associates</title>
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --bg-color: #050505;
+            --accent-color: #00f2ff; /* Cyan Neon */
+            --accent-secondary: #7000ff; /* Purple Neon */
+            --text-color: #ffffff;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* --- BACKGROUND CANVAS --- */
+        #networkCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        /* --- MAIN CONTAINER (TRANSPARENT) --- */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 600px;
+            padding: 40px;
+            
+            /* UPDATED: Fully Transparent */
+            background: transparent; 
+            border: none;
+            box-shadow: none;
+            backdrop-filter: none;
+
+            text-align: center;
+            overflow: visible; /* Changed to visible so glow effects aren't cut off */
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.3); /* Added text shadow for legibility */
+        }
+
+        p.subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* Shadow for contrast against network */
+        }
+
+        /* --- PROGRESS & STATUS --- */
+        .status-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-color);
+            width: 0%;
+            box-shadow: 0 0 15px var(--accent-color);
+            transition: width 0.4s ease;
+        }
+
+        .status-text {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            min-height: 1.2em;
+            text-shadow: 0 0 5px rgba(0, 242, 255, 0.5);
+        }
+
+        .percentage {
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: white;
+            margin-top: 5px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        /* --- EMAIL BOX STYLING --- */
+        .email-box {
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(0, 242, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            text-align: center;
+        }
+
+        .email-title {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .email-address {
+            font-size: 1.1rem;
+            word-break: break-all;
+            color: white;
+            font-weight: 500;
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            margin-top: 40px;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="networkCanvas"></canvas>
+
+    <div class="container">
+        <h1>Jayarama Associates Careers</h1>
+        <p class="subtitle">Our careers page is currently under development.<br>If you'd like to contact us about opportunities.</p>
+        
+        <div class="email-box">
+            <div class="email-title">📧 Contact Us:</div>
+            <div class="email-address">jayaramaassociatescareers@gmail.com</div>
+        </div>
+        
+        <div class="status-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="percentage" id="percentageText">0%</div>
+            <div class="status-text" id="statusText">Career portal coming soon...</div>
+        </div>
+
+        <div class="footer">
+            Join Our Journey • Excellence in Progress
+        </div>
+    </div>
+
+    <script>
+        // --- 1. CANVAS PARTICLE SYSTEM ANIMATION ---
+        const canvas = document.getElementById('networkCanvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+
+        // Resize Canvas
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        // Mouse Interaction
+        const mouse = { x: null, y: null, radius: 150 }
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        // Clear mouse position when leaving window
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        // Particle Class
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = '#ffffff';
+                ctx.fill();
+            }
+            update() {
+                // Bounce off walls
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+
+                // Mouse interaction
+                if (mouse.x && mouse.y) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx*dx + dy*dy);
+                    if (distance < mouse.radius + this.size){
+                        if(mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 2;
+                        if(mouse.x > this.x && this.x > this.size * 10) this.x -= 2;
+                        if(mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 2;
+                        if(mouse.y > this.y && this.y > this.size * 10) this.y -= 2;
+                    }
+                }
+
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        // Init Particles
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.4) - 0.2;
+                let directionY = (Math.random() * 0.4) - 0.2;
+                let color = '#ffffff';
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        // Connect Particles
+        function connect() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        opacityValue = 1 - (distance/20000);
+                        ctx.strokeStyle = 'rgba(0, 242, 255,' + opacityValue + ')'; // Cyan lines
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        init();
+        animate();
+
+
+        // --- 2. PROGRESS BAR & STATUS SIMULATOR (CAREER THEMED) ---
+        const progressFill = document.getElementById('progressFill');
+        const percentageText = document.getElementById('percentageText');
+        const statusText = document.getElementById('statusText');
+        
+        // Updated messages for Career Page context
+        const statusMessages = [
+            "Career portal under development...",
+            "Preparing to connect with talent...",
+            "Setting up recruitment channels...",
+            "Please use email for now...",
+            "We appreciate your interest...",
+            "Coming soon with opportunities...",
+            "Thank you for your patience..."
+        ];
+
+        let progress = 0;
+        let messageIndex = 0;
+
+        function simulateLoading() {
+            // Random increment to look "real" rather than linear
+            let increment = Math.random() * 1.5; // Slower increment
+            progress += increment;
+
+            if (progress >= 100) {
+                progress = 100;
+                statusText.innerText = "Email us to join our team!";
+                progressFill.style.width = progress + "%";
+                percentageText.innerText = "100%";
+                return; // Stop the animation
+            } else {
+                // Update progress bar and percentage text
+                progressFill.style.width = progress + "%";
+                percentageText.innerText = Math.floor(progress) + "%";
+                
+                // Change status message based on progress chunks
+                if (Math.floor(progress) % 15 === 0 && Math.floor(progress) !== 0) {
+                    messageIndex = (messageIndex + 1) % statusMessages.length;
+                    statusText.innerText = statusMessages[messageIndex];
+                }
+                
+                // Continue the animation
+                setTimeout(() => {
+                    requestAnimationFrame(simulateLoading);
+                }, 50); // 50ms delay for smoother animation
+            }
+        }
+
+        // Start the loading animation
+        setTimeout(simulateLoading, 500);
+
+    </script>
+</body>
+</html>

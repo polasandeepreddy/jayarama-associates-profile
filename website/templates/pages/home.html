@@ -1,0 +1,881 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="w-full relative main-wrapper">
+
+<!-- HERO SECTION -->
+<section class="hero-section w-full relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden flex items-center justify-center">
+    <div class="absolute inset-0">
+        <div class="hero-bg absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center bg-no-repeat opacity-20"></div>
+        <div class="absolute inset-0 bg-slate-900/60"></div>
+    </div>
+
+    <!-- Floating circles (hidden on mobile for performance) -->
+    <div class="absolute top-10 left-10 w-20 h-20 bg-amber-500 rounded-full opacity-10 animate-float hidden md:block"></div>
+    <div class="absolute top-1/3 right-20 w-16 h-16 bg-amber-400 rounded-full opacity-10 animate-float hidden md:block" style="animation-delay: 1s;"></div>
+    <div class="absolute bottom-20 left-1/4 w-12 h-12 bg-amber-300 rounded-full opacity-10 animate-float hidden md:block" style="animation-delay: 2s;"></div>
+
+    <!-- Main content -->
+    <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+        <div class="text-center max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                <span class="block animate-reveal opacity-0">Professional Property Valuation</span>
+                <span class="block text-amber-500 mt-4 animate-reveal opacity-0" style="animation-delay: 0.3s;">You Can Trust</span>
+            </h1>
+            <p class="text-base md:text-lg lg:text-xl text-gray-300 mb-10 leading-relaxed animate-reveal opacity-0 [text-align:justify]"
+   style="animation-delay: 0.6s;">
+    Understanding a property's true value is essential for making smart real estate decisions. Whether you're an owner, lender, or investor, our full-service valuation solutions give you the insight you need to capitalize on every opportunity. Our seasoned experts look beyond basic market figures to identify what truly sets your property apart. With this deeper level of analysis, you can approach complex scenarios with confidence and work toward maximizing your return on investment.
+</p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-reveal opacity-0" style="animation-delay: 0.9s;">
+                <a href="{% url 'services' %}" class="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform text-base md:text-lg">
+                    Our Services
+                    <i data-lucide="arrow-right" class="ml-2 h-5 w-5"></i>
+                </a>
+                <a href="{% url 'contact' %}" class="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-white hover:bg-gray-100 text-gray-900 font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform text-base md:text-lg">
+                    Get in Touch
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- WHY CHOOSE US SECTION -->
+<section class="py-16 md:py-24 bg-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-4 animate-reveal opacity-0">
+                Why Choose JAYARAMA ASSOCIATES?
+            </h2>
+            <p class="text-base md:text-lg lg:text-xl text-gray-600 max-w-4xl mx-auto animate-reveal opacity-0 [text-align:justify]"
+            style="animation-delay: 0.2s;">
+                The team at Jayarama Associates brings a strong history of delivering successful outcomes in complex real estate valuations. With deep market knowledge, we provide precise and dependable services. Our professionals have decades of hands-on experience across all property types, continually sharpening their expertise through teaching, speaking, writing, and active industry involvement.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <div class="bg-gradient-to-br from-gray-50 to-white p-6 md:p-8 rounded-xl border border-gray-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-reveal opacity-0">
+                <div class="flex items-center justify-center h-10 w-10 md:h-12 md:w-12 text-amber-600 mb-4">
+                    <i data-lucide="award" class="h-full w-full"></i>
+                </div>
+                <h3 class="text-lg md:text-xl font-semibold text-gray-900 mb-3">Technical Excellence</h3>
+                <p class="text-gray-600 leading-relaxed text-sm md:text-base">A team of accredited valuers and certified engineers backed by decades of collective experience.</p>
+            </div>
+            <div class="bg-gradient-to-br from-gray-50 to-white p-6 md:p-8 rounded-xl border border-gray-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-reveal opacity-0" style="animation-delay: 0.1s;">
+                <div class="flex items-center justify-center h-10 w-10 md:h-12 md:w-12 text-amber-600 mb-4">
+                    <i data-lucide="trending-up" class="h-full w-full"></i>
+                </div>
+                <h3 class="text-lg md:text-xl font-semibold text-gray-900 mb-3">Local Market Expertise</h3>
+                <p class="text-gray-600 leading-relaxed text-sm md:text-base">Our long-standing regional presence allows us to accurately capture real-time market trends.</p>
+            </div>
+            <div class="bg-gradient-to-br from-gray-50 to-white p-6 md:p-8 rounded-xl border border-gray-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-reveal opacity-0" style="animation-delay: 0.2s;">
+                <div class="flex items-center justify-center h-10 w-10 md:h-12 md:w-12 text-amber-600 mb-4">
+                    <i data-lucide="check-circle" class="h-full w-full"></i>
+                </div>
+                <h3 class="text-lg md:text-xl font-semibold text-gray-900 mb-3">Integrity & Independence</h3>
+                <p class="text-gray-600 leading-relaxed text-sm md:text-base">Strict ethical standards with valuations free from conflicts of interest.</p>
+            </div>
+            <div class="bg-gradient-to-br from-gray-50 to-white p-6 md:p-8 rounded-xl border border-gray-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-reveal opacity-0" style="animation-delay: 0.3s;">
+                <div class="flex items-center justify-center h-10 w-10 md:h-12 md:w-12 text-amber-600 mb-4">
+                    <i data-lucide="users" class="h-full w-full"></i>
+                </div>
+                <h3 class="text-lg md:text-xl font-semibold text-gray-900 mb-3">Client-Centric Service</h3>
+                <p class="text-gray-600 leading-relaxed text-sm md:text-base">Tailored approach to fit each client's unique requirements.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT SECTION WITH STATS -->
+<section class="py-16 md:py-24 bg-gradient-to-br from-amber-50 to-orange-50 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-amber-200 rounded-full -translate-y-32 translate-x-32"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-orange-200 rounded-full translate-y-48 -translate-x-48"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div class="animate-reveal opacity-0" style="animation-delay: 0.2s;">
+                <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
+                    ABOUT US
+                </h2>
+                <p class="text-base md:text-lg text-gray-700 mb-4 leading-relaxed [text-align:justify]">
+                    With six years of property valuation expertise, we are a Hyderabad-based firm serving clients across India. Trusted by leading financial institutions for secured lending and buyers verifying property worth, we deliver valuations that inspire confidence.
+                </p>
+
+                <p class="text-base md:text-lg text-gray-700 mb-6 leading-relaxed [text-align:justify]">
+                    From lending and acquisition to investment and compliance, our insight-driven approach ensures precise, market-aligned valuation solutions for smarter real estate decisions.
+                </p>
+                <div class="space-y-3 mb-6">
+                    <div class="flex items-center animate-reveal opacity-0" style="animation-delay: 0.4s;">
+                        <i data-lucide="check-circle" class="h-5 w-5 md:h-6 md:w-6 text-amber-600 mr-3"></i>
+                        <span class="text-gray-700 text-base md:text-lg">Registered with IBBI</span>
+                    </div>
+                    <div class="flex items-center animate-reveal opacity-0" style="animation-delay: 0.5s;">
+                        <i data-lucide="check-circle" class="h-5 w-5 md:h-6 md:w-6 text-amber-600 mr-3"></i>
+                        <span class="text-gray-700 text-base md:text-lg">ISO 9001:2015 Certified</span>
+                    </div>
+                    <div class="flex items-center animate-reveal opacity-0" style="animation-delay: 0.6s;">
+                        <i data-lucide="check-circle" class="h-5 w-5 md:h-6 md:w-6 text-amber-600 mr-3"></i>
+                        <span class="text-gray-700 text-base md:text-lg">Pan-India Service Coverage</span>
+                    </div>
+                </div>
+                <a href="{% url 'about' %}" class="inline-flex items-center px-6 py-3 md:px-8 md:py-4 bg-gray-900 hover:bg-gray-800 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 transform text-base md:text-lg animate-reveal opacity-0" style="animation-delay: 0.7s;">
+                    Learn More About Us
+                    <i data-lucide="arrow-right" class="ml-2 h-5 w-5"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 gap-4 md:gap-6">
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-reveal opacity-0" style="animation-delay: 0.3s;">
+                    <div class="text-3xl md:text-5xl font-bold text-amber-600 mb-2 animate-count-up" data-target="55000" data-suffix="+">0</div>
+                    <div class="text-gray-700 font-medium text-sm md:text-base">Properties Valued</div>
+                </div>
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-reveal opacity-0" style="animation-delay: 0.4s;">
+                    <div class="text-3xl md:text-5xl font-bold text-amber-600 mb-2 animate-count-up" data-target="250" data-suffix="+">0</div>
+                    <div class="text-gray-700 font-medium text-sm md:text-base">Happy Clients</div>
+                </div>
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-reveal opacity-0" style="animation-delay: 0.5s;">
+                    <div class="text-3xl md:text-5xl font-bold text-amber-600 mb-2 animate-count-up" data-target="6">0</div>
+                    <div class="text-gray-700 font-medium text-sm md:text-base">Years Experience</div>
+                </div>
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-reveal opacity-0" style="animation-delay: 0.6s;">
+                    <div class="text-3xl md:text-5xl font-bold text-amber-600 mb-2 animate-count-up" data-target="99" data-suffix="%">0</div>
+                    <div class="text-gray-700 font-medium text-sm md:text-base">Client Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SERVICES CAROUSEL SECTION -->
+<section class="relative py-10 bg-slate-50 overflow-hidden">
+
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-indigo-100 rounded-full blur-3xl opacity-50"></div>
+        <div class="absolute top-1/2 -left-24 w-72 h-72 bg-amber-50 rounded-full blur-3xl opacity-50"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-12 relative z-10 max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-6 animate-reveal opacity-0" style="animation-delay: 0.1s;">
+                Our Valuation Services
+            </h2>
+            <p class="text-lg md:text-xl text-gray-600 mx-auto animate-reveal opacity-0" style="animation-delay: 0.2s;">
+                Comprehensive property valuation solutions tailored to meet your specific needs with precision and reliability.
+            </p>
+        </div>
+
+        <div class="relative group">
+            
+            <button id="prevBtn" aria-label="Previous Slide" class="absolute left-0 md:-left-12 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-white text-slate-600 shadow-xl border border-slate-100 hover:bg-indigo-600 hover:text-white hover:scale-110 transition-all duration-300 opacity-100 md:opacity-0 group-hover:opacity-100 translate-x-0 cursor-pointer">
+                <i data-lucide="arrow-left" class="w-6 h-6"></i>
+            </button>
+
+            <button id="nextBtn" aria-label="Next Slide" class="absolute right-0 md:-right-12 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-white text-slate-600 shadow-xl border border-slate-100 hover:bg-indigo-600 hover:text-white hover:scale-110 transition-all duration-300 opacity-100 md:opacity-0 group-hover:opacity-100 translate-x-0 cursor-pointer">
+                <i data-lucide="arrow-right" class="w-6 h-6"></i>
+            </button>
+
+            <div class="overflow-hidden -mx-4 px-4 md:mx-0 md:px-0 py-8"> 
+                <div id="slider-track" class="flex gap-8 transition-transform duration-700 ease-out will-change-transform cursor-grab active:cursor-grabbing">
+
+                    <div class="card w-[85vw] md:w-[380px] flex-shrink-0 group/card relative select-none">
+                        <a href="{% url 'services' %}" class="block h-full bg-white rounded-3xl p-8 shadow-sm border border-slate-100 relative overflow-hidden transition-all duration-500 group-hover/card:shadow-[0_20px_50px_rgba(8,_112,_184,_0.1)] group-hover/card:-translate-y-2">
+                            <span class="absolute -bottom-4 -right-4 text-9xl font-bold text-slate-50 group-hover/card:text-indigo-50 transition-colors duration-500 select-none">01</span>
+                            <div class="relative z-10 w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 transition-all duration-500 group-hover/card:bg-indigo-600 group-hover/card:rotate-3 group-hover/card:scale-110">
+                                <i data-lucide="home" class="w-8 h-8 text-slate-700 group-hover/card:text-white transition-colors duration-300"></i>
+                            </div>
+                            <div class="relative z-10">
+                                <h3 class="text-2xl font-bold text-slate-900 mb-4 group-hover/card:text-indigo-700 transition-colors">Residential Property Valuations</h3>
+                                <div class="flex items-center text-sm font-bold text-slate-900 group-hover/card:text-indigo-600 transition-colors">
+                                    <span class="mr-2">View details</span>
+                                    <div class="h-[1px] w-8 bg-slate-300 group-hover/card:w-16 group-hover/card:bg-indigo-600 transition-all duration-300"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card w-[85vw] md:w-[380px] flex-shrink-0 group/card relative select-none">
+                        <a href="{% url 'services' %}" class="block h-full bg-white rounded-3xl p-8 shadow-sm border border-slate-100 relative overflow-hidden transition-all duration-500 group-hover/card:shadow-[0_20px_50px_rgba(8,_112,_184,_0.1)] group-hover/card:-translate-y-2">
+                            <span class="absolute -bottom-4 -right-4 text-9xl font-bold text-slate-50 group-hover/card:text-indigo-50 transition-colors duration-500 select-none">02</span>
+                            <div class="relative z-10 w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 transition-all duration-500 group-hover/card:bg-indigo-600 group-hover/card:rotate-3 group-hover/card:scale-110">
+                                <i data-lucide="building-2" class="w-8 h-8 text-slate-700 group-hover/card:text-white transition-colors duration-300"></i>
+                            </div>
+                            <div class="relative z-10">
+                                <h3 class="text-2xl font-bold text-slate-900 mb-4 group-hover/card:text-indigo-700 transition-colors">Commercial Property Valuations</h3>
+                                <div class="flex items-center text-sm font-bold text-slate-900 group-hover/card:text-indigo-600 transition-colors">
+                                    <span class="mr-2">View details</span>
+                                    <div class="h-[1px] w-8 bg-slate-300 group-hover/card:w-16 group-hover/card:bg-indigo-600 transition-all duration-300"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card w-[85vw] md:w-[380px] flex-shrink-0 group/card relative select-none">
+                        <a href="{% url 'services' %}" class="block h-full bg-white rounded-3xl p-8 shadow-sm border border-slate-100 relative overflow-hidden transition-all duration-500 group-hover/card:shadow-[0_20px_50px_rgba(8,_112,_184,_0.1)] group-hover/card:-translate-y-2">
+                            <span class="absolute -bottom-4 -right-4 text-9xl font-bold text-slate-50 group-hover/card:text-indigo-50 transition-colors duration-500 select-none">03</span>
+                            <div class="relative z-10 w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 transition-all duration-500 group-hover/card:bg-indigo-600 group-hover/card:rotate-3 group-hover/card:scale-110">
+                                <i data-lucide="factory" class="w-8 h-8 text-slate-700 group-hover/card:text-white transition-colors duration-300"></i>
+                            </div>
+                            <div class="relative z-10">
+                                <h3 class="text-2xl font-bold text-slate-900 mb-4 group-hover/card:text-indigo-700 transition-colors">Industrial & Special-Use Valuations</h3>
+                                <div class="flex items-center text-sm font-bold text-slate-900 group-hover/card:text-indigo-600 transition-colors">
+                                    <span class="mr-2">View details</span>
+                                    <div class="h-[1px] w-8 bg-slate-300 group-hover/card:w-16 group-hover/card:bg-indigo-600 transition-all duration-300"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card w-[85vw] md:w-[380px] flex-shrink-0 group/card relative select-none">
+                        <a href="{% url 'services' %}" class="block h-full bg-white rounded-3xl p-8 shadow-sm border border-slate-100 relative overflow-hidden transition-all duration-500 group-hover/card:shadow-[0_20px_50px_rgba(8,_112,_184,_0.1)] group-hover/card:-translate-y-2">
+                            <span class="absolute -bottom-4 -right-4 text-9xl font-bold text-slate-50 group-hover/card:text-indigo-50 transition-colors duration-500 select-none">04</span>
+                            <div class="relative z-10 w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 transition-all duration-500 group-hover/card:bg-indigo-600 group-hover/card:rotate-3 group-hover/card:scale-110">
+                                <i data-lucide="map" class="w-8 h-8 text-slate-700 group-hover/card:text-white transition-colors duration-300"></i>
+                            </div>
+                            <div class="relative z-10">
+                                <h3 class="text-2xl font-bold text-slate-900 mb-4 group-hover/card:text-indigo-700 transition-colors">Land & Plot Valuations</h3>
+                                <div class="flex items-center text-sm font-bold text-slate-900 group-hover/card:text-indigo-600 transition-colors">
+                                    <span class="mr-2">View details</span>
+                                    <div class="h-[1px] w-8 bg-slate-300 group-hover/card:w-16 group-hover/card:bg-indigo-600 transition-all duration-300"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card w-[85vw] md:w-[380px] flex-shrink-0 group/card relative select-none">
+                        <a href="{% url 'services' %}" class="block h-full bg-white rounded-3xl p-8 shadow-sm border border-slate-100 relative overflow-hidden transition-all duration-500 group-hover/card:shadow-[0_20px_50px_rgba(8,_112,_184,_0.1)] group-hover/card:-translate-y-2">
+                            <span class="absolute -bottom-4 -right-4 text-9xl font-bold text-slate-50 group-hover/card:text-indigo-50 transition-colors duration-500 select-none">05</span>
+                            <div class="relative z-10 w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 transition-all duration-500 group-hover/card:bg-indigo-600 group-hover/card:rotate-3 group-hover/card:scale-110">
+                                <i data-lucide="scroll-text" class="w-8 h-8 text-slate-700 group-hover/card:text-white transition-colors duration-300"></i>
+                            </div>
+                            <div class="relative z-10">
+                                <h3 class="text-2xl font-bold text-slate-900 mb-4 group-hover/card:text-indigo-700 transition-colors">Tax Purpose Valuations</h3>
+                                <div class="flex items-center text-sm font-bold text-slate-900 group-hover/card:text-indigo-600 transition-colors">
+                                    <span class="mr-2">View details</span>
+                                    <div class="h-[1px] w-8 bg-slate-300 group-hover/card:w-16 group-hover/card:bg-indigo-600 transition-all duration-300"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                     <div class="card w-[85vw] md:w-[380px] flex-shrink-0 group/card relative select-none">
+                        <a href="{% url 'services' %}" class="block h-full bg-white rounded-3xl p-8 shadow-sm border border-slate-100 relative overflow-hidden transition-all duration-500 group-hover/card:shadow-[0_20px_50px_rgba(8,_112,_184,_0.1)] group-hover/card:-translate-y-2">
+                            <span class="absolute -bottom-4 -right-4 text-9xl font-bold text-slate-50 group-hover/card:text-indigo-50 transition-colors duration-500 select-none">06</span>
+                            <div class="relative z-10 w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 transition-all duration-500 group-hover/card:bg-indigo-600 group-hover/card:rotate-3 group-hover/card:scale-110">
+                                <i data-lucide="building-2" class="w-8 h-8 text-slate-700 group-hover/card:text-white transition-colors duration-300"></i>
+                            </div>
+                            <div class="relative z-10">
+                                <h3 class="text-2xl font-bold text-slate-900 mb-4 group-hover/card:text-indigo-700 transition-colors">Mortgage Valuations</h3>
+                                <div class="flex items-center text-sm font-bold text-slate-900 group-hover/card:text-indigo-600 transition-colors">
+                                    <span class="mr-2">View details</span>
+                                    <div class="h-[1px] w-8 bg-slate-300 group-hover/card:w-16 group-hover/card:bg-indigo-600 transition-all duration-300"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card w-[85vw] md:w-[380px] flex-shrink-0 group/card relative select-none">
+                        <a href="{% url 'services' %}" class="block h-full bg-white rounded-3xl p-8 shadow-sm border border-slate-100 relative overflow-hidden transition-all duration-500 group-hover/card:shadow-[0_20px_50px_rgba(8,_112,_184,_0.1)] group-hover/card:-translate-y-2">
+                            <span class="absolute -bottom-4 -right-4 text-9xl font-bold text-slate-50 group-hover/card:text-indigo-50 transition-colors duration-500 select-none">07</span>
+                            <div class="relative z-10 w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 transition-all duration-500 group-hover/card:bg-indigo-600 group-hover/card:rotate-3 group-hover/card:scale-110">
+                                <i data-lucide="building-2" class="w-8 h-8 text-slate-700 group-hover/card:text-white transition-colors duration-300"></i>
+                            </div>
+                            <div class="relative z-10">
+                                <h3 class="text-2xl font-bold text-slate-900 mb-4 group-hover/card:text-indigo-700 transition-colors">Land Acquisition</h3>
+                                <div class="flex items-center text-sm font-bold text-slate-900 group-hover/card:text-indigo-600 transition-colors">
+                                    <span class="mr-2">View details</span>
+                                    <div class="h-[1px] w-8 bg-slate-300 group-hover/card:w-16 group-hover/card:bg-indigo-600 transition-all duration-300"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card w-[85vw] md:w-[380px] flex-shrink-0 group/card relative select-none">
+                        <a href="{% url 'services' %}" class="block h-full bg-white rounded-3xl p-8 shadow-sm border border-slate-100 relative overflow-hidden transition-all duration-500 group-hover/card:shadow-[0_20px_50px_rgba(8,_112,_184,_0.1)] group-hover/card:-translate-y-2">
+                            <span class="absolute -bottom-4 -right-4 text-9xl font-bold text-slate-50 group-hover/card:text-indigo-50 transition-colors duration-500 select-none">08</span>
+                            <div class="relative z-10 w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 transition-all duration-500 group-hover/card:bg-indigo-600 group-hover/card:rotate-3 group-hover/card:scale-110">
+                                <i data-lucide="building-2" class="w-8 h-8 text-slate-700 group-hover/card:text-white transition-colors duration-300"></i>
+                            </div>
+                            <div class="relative z-10">
+                                <h3 class="text-2xl font-bold text-slate-900 mb-4 group-hover/card:text-indigo-700 transition-colors">Market Research</h3>
+                                <div class="flex items-center text-sm font-bold text-slate-900 group-hover/card:text-indigo-600 transition-colors">
+                                    <span class="mr-2">View details</span>
+                                    <div class="h-[1px] w-8 bg-slate-300 group-hover/card:w-16 group-hover/card:bg-indigo-600 transition-all duration-300"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="py-16 md:py-24 bg-gray-900 text-white relative overflow-hidden">
+    <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2073&q=80')] bg-cover bg-center bg-no-repeat opacity-10"></div>
+        <div class="absolute inset-0 bg-gray-900/80"></div>
+    </div>
+
+    <!-- Logo background -->
+    <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+        <div class="relative w-48 h-48 md:w-64 md:h-64">
+            <img src="{% static 'images/JAYARAMA LOGO2.png' %}" 
+                 alt="JAYARAMA ASSOCIATES" 
+                 class="w-full h-full object-contain"
+                 style="filter: brightness(0) invert(1);">
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-5xl font-bold mb-6 animate-reveal opacity-0">
+            Ready to Get Started?
+        </h2>
+        <p class="text-lg md:text-xl text-gray-300 mb-8 md:mb-10 animate-reveal opacity-0" style="animation-delay: 0.2s;">
+            Discover how JAYARAMA ASSOCIATES can add clarity and confidence to your property decisions.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'contact' %}" class="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform text-base md:text-lg animate-reveal opacity-0" style="animation-delay: 0.4s;">
+                Contact Us Today
+                <i data-lucide="arrow-right" class="ml-2 h-5 w-5"></i>
+            </a>
+            <a href="tel:+919866669777" class="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-white hover:bg-gray-100 text-gray-900 font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform text-base md:text-lg animate-reveal opacity-0" style="animation-delay: 0.6s;">
+                <i data-lucide="phone" class="mr-2 h-5 w-5"></i>
+                Call Now
+            </a>
+        </div>
+    </div>
+</section>
+</div>
+
+<style>
+/* RESET AND BASE STYLES */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.main-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* SECTION STYLES */
+section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* HERO: use hero-section class for heights */
+.hero-section {
+    position: relative;
+    z-index: 0;
+    min-height: 130vh; /* desktop default */
+}
+
+/* background helper in case Tailwind classes don't compile */
+.hero-bg {
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* CAROUSEL STYLES FOR INFINITE SLIDER */
+#slider-track {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.card.cloned {
+    visibility: visible;
+    pointer-events: none;
+}
+
+/* Ensure smooth scrolling on mobile */
+@media (max-width: 768px) {
+    #prevBtn, #nextBtn {
+        opacity: 1 !important;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        width: 40px;
+        height: 40px;
+    }
+    
+    #prevBtn {
+        left: 5px;
+    }
+    
+    #nextBtn {
+        right: 5px;
+    }
+}
+
+/* ANIMATIONS */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes reveal {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, -10px); }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-reveal { animation: reveal 0.8s ease-out forwards; opacity: 0; }
+.animate-bounce { animation: bounce 2s ease-in-out infinite; }
+
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 1024px) {
+    .hero-section {
+        min-height: 115vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 95vh;
+    }
+
+    section {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+
+    .animate-float {
+        display: none;
+    }
+
+    h1 { font-size: 2.5rem; line-height: 1.2; }
+    h2 { font-size: 2rem; }
+    
+    /* Adjust carousel card width for mobile */
+    .card {
+        width: 85vw !important;
+        min-width: 85vw !important;
+    }
+}
+
+/* GRID AND LAYOUT FIXES */
+.grid { display: grid; }
+.grid-cols-1 { grid-template-columns: 1fr; }
+
+@media (min-width: 768px) {
+    .md\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .md\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1024px) {
+    .lg\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* CARD HOVER EFFECTS */
+.hover\:-translate-y-1:hover { transform: translateY(-4px); }
+.hover\:scale-105:hover { transform: scale(1.05); }
+
+/* TRANSITION DEFAULTS */
+.transition-all { transition-property: all; }
+.duration-300 { transition-duration: 300ms; }
+
+/* BUTTON STYLES */
+a, button {
+    position: relative;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* STATS COUNTER */
+.animate-count-up { display: inline-block; }
+
+/* Z-INDEX LAYERING */
+.relative { position: relative; z-index: 10; }
+.absolute { position: absolute; }
+
+/* LOGO BACKGROUND */
+.pointer-events-none { pointer-events: none; }
+
+/* IMAGE CONTAINMENT */
+img { max-width: 100%; height: auto; }
+
+/* TEXT OVERFLOW PREVENTION */
+.text-ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Lucide icons
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+
+    // ========== INFINITE CAROUSEL ==========
+    const track = document.getElementById('slider-track');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    if (track && prevBtn && nextBtn) {
+        const cards = document.querySelectorAll('.card');
+        const totalCards = cards.length;
+        
+        // Calculate visible cards based on screen width
+        function getVisibleCards() {
+            if (window.innerWidth >= 1024) return 3; // desktop
+            if (window.innerWidth >= 768) return 2;  // tablet
+            return 1; // mobile
+        }
+        
+        // Calculate card width including gap
+        function getCardWidth() {
+            const gap = 32; // gap-8 = 32px
+            const card = cards[0];
+            return card.offsetWidth + gap;
+        }
+        
+        let visibleCards = getVisibleCards();
+        let cardWidth = getCardWidth();
+        let currentIndex = visibleCards; // Start after cloned cards
+        let autoSlideInterval;
+        let isAnimating = false;
+        
+        // Clone cards for infinite loop
+        function cloneCards() {
+            // Remove existing cloned cards
+            const clonedCards = track.querySelectorAll('.cloned');
+            clonedCards.forEach(card => card.remove());
+            
+            // Clone first few cards and append to end
+            for (let i = 0; i < visibleCards; i++) {
+                if (cards[i]) {
+                    const clone = cards[i].cloneNode(true);
+                    clone.classList.add('cloned');
+                    track.appendChild(clone);
+                }
+            }
+            
+            // Clone last few cards and prepend to beginning
+            for (let i = totalCards - visibleCards; i < totalCards; i++) {
+                if (cards[i]) {
+                    const clone = cards[i].cloneNode(true);
+                    clone.classList.add('cloned');
+                    track.insertBefore(clone, cards[0]);
+                }
+            }
+            
+            // Update position
+            updateCarouselPosition();
+        }
+        
+        // Update carousel position
+        function updateCarouselPosition(instant = false) {
+            if (instant) {
+                track.style.transition = 'none';
+            } else {
+                track.style.transition = 'transform 0.7s ease-out';
+            }
+            
+            const offset = -currentIndex * cardWidth;
+            track.style.transform = `translateX(${offset}px)`;
+            
+            if (instant) {
+                // Force reflow
+                track.offsetHeight;
+            }
+        }
+        
+        // Next slide function
+        function nextSlide() {
+            if (isAnimating) return;
+            isAnimating = true;
+            
+            currentIndex++;
+            updateCarouselPosition();
+            
+            // Check if we need to loop back
+            setTimeout(() => {
+                const allCards = track.querySelectorAll('.card');
+                const totalAllCards = allCards.length;
+                
+                if (currentIndex >= totalAllCards - visibleCards) {
+                    currentIndex = visibleCards;
+                    updateCarouselPosition(true);
+                }
+                isAnimating = false;
+            }, 700);
+        }
+        
+        // Previous slide function
+        function prevSlide() {
+            if (isAnimating) return;
+            isAnimating = true;
+            
+            currentIndex--;
+            updateCarouselPosition();
+            
+            // Check if we need to loop to end
+            setTimeout(() => {
+                const allCards = track.querySelectorAll('.card');
+                const totalAllCards = allCards.length;
+                
+                if (currentIndex < visibleCards) {
+                    currentIndex = totalAllCards - (2 * visibleCards);
+                    updateCarouselPosition(true);
+                }
+                isAnimating = false;
+            }, 700);
+        }
+        
+        // Auto slide functionality
+        function startAutoSlide() {
+            stopAutoSlide();
+            autoSlideInterval = setInterval(nextSlide, 4000);
+        }
+        
+        function stopAutoSlide() {
+            clearInterval(autoSlideInterval);
+        }
+        
+        // Event listeners
+        nextBtn.addEventListener('click', () => {
+            stopAutoSlide();
+            nextSlide();
+            startAutoSlide();
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            stopAutoSlide();
+            prevSlide();
+            startAutoSlide();
+        });
+        
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        track.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            stopAutoSlide();
+        }, { passive: true });
+        
+        track.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+            startAutoSlide();
+        }, { passive: true });
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchEndX - touchStartX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    prevSlide();
+                } else {
+                    nextSlide();
+                }
+            }
+        }
+        
+        // Mouse drag support
+        let mouseDown = false;
+        let startX = 0;
+        let scrollLeft = 0;
+        
+        track.addEventListener('mousedown', (e) => {
+            mouseDown = true;
+            startX = e.pageX - track.offsetLeft;
+            scrollLeft = track.scrollLeft;
+            stopAutoSlide();
+            track.style.cursor = 'grabbing';
+        });
+        
+        track.addEventListener('mouseleave', () => {
+            mouseDown = false;
+            track.style.cursor = 'grab';
+        });
+        
+        track.addEventListener('mouseup', () => {
+            mouseDown = false;
+            track.style.cursor = 'grab';
+            startAutoSlide();
+        });
+        
+        track.addEventListener('mousemove', (e) => {
+            if (!mouseDown) return;
+            e.preventDefault();
+            const x = e.pageX - track.offsetLeft;
+            const walk = (x - startX) * 2;
+            track.scrollLeft = scrollLeft - walk;
+        });
+        
+        // Pause on hover
+        const sliderContainer = track.closest('.relative.group');
+        sliderContainer.addEventListener('mouseenter', stopAutoSlide);
+        sliderContainer.addEventListener('mouseleave', startAutoSlide);
+        
+        // Handle window resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                visibleCards = getVisibleCards();
+                cardWidth = getCardWidth();
+                cloneCards();
+            }, 250);
+        });
+        
+        // Initialize carousel
+        cloneCards();
+        startAutoSlide();
+    }
+
+    // ========== ANIMATION OBSERVERS ==========
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    // Reveal animations
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-reveal').forEach(el => {
+        el.style.animationPlayState = 'paused';
+        revealObserver.observe(el);
+    });
+
+    // ========== COUNTER ANIMATIONS ==========
+    const countUpElements = document.querySelectorAll('.animate-count-up');
+    
+    // Helper function to parse target values
+    function parseTargetValue(raw) {
+        raw = String(raw).trim();
+        const suffix = raw.endsWith('+') ? '+' : (raw.endsWith('%') ? '%' : '');
+        const numericValue = parseFloat(raw.replace(/[^\d.]/g, '')) || 0;
+        return { value: numericValue, suffix };
+    }
+    
+    // Format numbers with Indian grouping
+    const numberFormatter = new Intl.NumberFormat('en-IN');
+    
+    function formatNumber(value, suffix) {
+        const rounded = Math.round(value);
+        if (suffix === '%') return `${rounded}%`;
+        if (suffix === '+') return `${numberFormatter.format(rounded)}+`;
+        return numberFormatter.format(rounded);
+    }
+    
+    // Animate counting
+    function animateCounter(element, endValue, suffix, duration = 2000) {
+        const startTime = performance.now();
+        const startValue = 0;
+        
+        function update(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Ease out quad
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = startValue + (endValue - startValue) * eased;
+            
+            element.textContent = formatNumber(current, suffix);
+            
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                element.textContent = formatNumber(endValue, suffix);
+            }
+        }
+        
+        requestAnimationFrame(update);
+    }
+    
+    // Counter observer
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            
+            const element = entry.target;
+            const target = element.getAttribute('data-target') || '0';
+            const suffixAttr = element.getAttribute('data-suffix');
+            
+            const { value, suffix } = parseTargetValue(target);
+            const finalSuffix = suffixAttr || suffix;
+            
+            animateCounter(element, value, finalSuffix);
+            
+            counterObserver.unobserve(element);
+        });
+    }, observerOptions);
+    
+    countUpElements.forEach(el => {
+        el.textContent = '0';
+        counterObserver.observe(el);
+    });
+
+    // ========== SMOOTH SCROLL ==========
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#' || !href.startsWith('#') || href === '#!') return;
+
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                e.preventDefault();
+                const navHeight = 80;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+            }
+        });
+    });
+
+    // ========== PERFORMANCE OPTIMIZATION ==========
+    // Pause animations when tab is hidden
+    document.addEventListener('visibilitychange', function() {
+        const animatedElements = document.querySelectorAll('.animate-float, .animate-bounce');
+        if (document.hidden) {
+            animatedElements.forEach(el => el.style.animationPlayState = 'paused');
+        } else {
+            animatedElements.forEach(el => el.style.animationPlayState = 'running');
+        }
+    });
+
+    // ========== RESIZE HANDLER ==========
+    let iconResizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(iconResizeTimer);
+        iconResizeTimer = setTimeout(function() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }, 250);
+    });
+});
+</script>
+{% endblock %}

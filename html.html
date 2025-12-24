@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers | Jayarama Associates</title>
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --bg-color: #050505;
+            --accent-color: #00f2ff; /* Cyan Neon */
+            --accent-secondary: #7000ff; /* Purple Neon */
+            --text-color: #ffffff;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            /* Add subtle gradient to background */
+            background: linear-gradient(135deg, #050505 0%, #0a0a1a 50%, #050505 100%);
+        }
+
+        /* --- BACKGROUND CANVAS --- */
+        #networkCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        /* --- ADD PULSING BACKGROUND EFFECT --- */
+        .bg-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw;
+            height: 80vh;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.05) 0%, transparent 70%);
+            animation: pulse 8s infinite alternate ease-in-out;
+            z-index: 0;
+        }
+
+        .bg-pulse-2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            height: 60vh;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(112, 0, 255, 0.03) 0%, transparent 70%);
+            animation: pulse 6s infinite alternate-reverse ease-in-out;
+            z-index: 0;
+            animation-delay: 2s;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        /* --- MAIN CONTAINER (TRANSPARENT) --- */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 600px;
+            padding: 40px;
+            
+            /* Updated: Glass effect for better readability */
+            background: rgba(5, 5, 10, 0.7);
+            border: 1px solid rgba(0, 242, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 
+                0 0 40px rgba(0, 242, 255, 0.1),
+                inset 0 0 20px rgba(0, 242, 255, 0.05);
+            backdrop-filter: blur(10px);
+
+            text-align: center;
+            overflow: visible;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--accent-color), transparent);
+            border-radius: 3px;
+        }
+
+        p.subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            margin: 30px 0 40px;
+            line-height: 1.6;
+            padding: 0 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* --- LOADER ANIMATION --- */
+        .loader-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .circle-1 {
+            width: 100%;
+            height: 100%;
+            border-top-color: var(--accent-color);
+            animation: spin 2s linear infinite;
+            box-shadow: 
+                0 0 20px var(--accent-color),
+                inset 0 0 20px rgba(0, 242, 255, 0.1);
+        }
+        
+        .circle-2 {
+            width: 80%;
+            height: 80%;
+            border-bottom-color: var(--accent-secondary);
+            animation: spin 1.5s linear infinite reverse;
+            box-shadow: 
+                0 0 15px var(--accent-secondary),
+                inset 0 0 15px rgba(112, 0, 255, 0.1);
+        }
+
+        .circle-3 {
+            width: 60%;
+            height: 60%;
+            border-left-color: rgba(255, 255, 255, 0.5);
+            animation: spin 3s linear infinite;
+            opacity: 0.7;
+        }
+
+        .percentage-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            z-index: 2;
+            text-shadow: 0 0 15px var(--accent-color);
+            font-family: 'Courier New', monospace;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* --- PROGRESS & STATUS --- */
+        .status-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 242, 255, 0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-secondary), var(--accent-color));
+            width: 0%;
+            box-shadow: 
+                0 0 10px var(--accent-color),
+                0 0 20px var(--accent-color);
+            transition: width 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .status-text {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            min-height: 1.2em;
+            text-shadow: 0 0 8px rgba(0, 242, 255, 0.7);
+            letter-spacing: 1px;
+        }
+
+        .percentage {
+            font-weight: 600;
+            font-size: 2rem;
+            color: white;
+            margin: 10px 0;
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.8);
+            font-family: 'Courier New', monospace;
+        }
+
+        /* --- EMAIL BOX --- */
+        .email-box {
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(0, 242, 255, 0.1), rgba(112, 0, 255, 0.1));
+            border-radius: 12px;
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .email-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .email-box > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .email-title {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .email-address {
+            font-size: 1.1rem;
+            word-break: break-all;
+            color: white;
+            font-family: 'Courier New', monospace;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 6px;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            margin-top: 40px;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+        }
+
+        /* --- FLOATING PARTICLES --- */
+        .floating-particle {
+            position: absolute;
+            background: var(--accent-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="networkCanvas"></canvas>
+    
+    <!-- Background Pulse Effects -->
+    <div class="bg-pulse"></div>
+    <div class="bg-pulse-2"></div>
+
+    <div class="container">
+        <!-- Loader with animated circles -->
+        <div class="loader-wrapper">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+            <div class="circle circle-3"></div>
+            <div class="percentage-circle" id="circlePercentage">0%</div>
+        </div>
+
+        <h1>Jayarama Associates Careers</h1>
+        <p class="subtitle">Our careers page is currently under development.<br>If you'd like to contact us about opportunities.</p>
+        
+        <div class="status-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="percentage" id="percentageText">0%</div>
+            <div class="status-text" id="statusText">Career portal coming soon...</div>
+        </div>
+
+        <!-- Updated Email Box -->
+        <div class="email-box">
+            <div class="email-title">
+                <span>📧</span> Contact Us
+            </div>
+            <div class="email-address">jayaramaassociatescareers@gmail.com</div>
+        </div>
+
+        <div class="footer">
+            Join Our Journey • Excellence in Progress
+        </div>
+    </div>
+
+    <!-- Floating particles -->
+    <div id="floatingParticles"></div>
+
+    <script>
+        // --- 1. CANVAS PARTICLE SYSTEM ANIMATION (ENHANCED) ---
+        const canvas = document.getElementById('networkCanvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+
+        // Resize Canvas
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        // Mouse Interaction
+        const mouse = { x: null, y: null, radius: 150 }
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        // Enhanced Particle Class
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+                this.originalSize = size;
+                this.opacity = Math.random() * 0.5 + 0.3;
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = `rgba(0, 242, 255, ${this.opacity})`;
+                ctx.fill();
+                
+                // Glow effect
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2, false);
+                ctx.fillStyle = `rgba(0, 242, 255, ${this.opacity * 0.3})`;
+                ctx.fill();
+            }
+            
+            update() {
+                // Bounce off walls
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+
+                // Mouse interaction with enhanced effect
+                if (mouse.x && mouse.y) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx*dx + dy*dy);
+                    
+                    if (distance < mouse.radius + this.size){
+                        // Repel effect
+                        if(mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 3;
+                        if(mouse.x > this.x && this.x > this.size * 10) this.x -= 3;
+                        if(mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 3;
+                        if(mouse.y > this.y && this.y > this.size * 10) this.y -= 2;
+                        
+                        // Glow effect near mouse
+                        this.size = Math.min(this.originalSize * 2, 5);
+                        this.opacity = Math.min(this.opacity * 1.5, 1);
+                    } else {
+                        this.size = Math.max(this.size * 0.95, this.originalSize);
+                        this.opacity = Math.max(this.opacity * 0.95, this.originalSize/5);
+                    }
+                }
+
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        // Init Particles with more variety
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 7000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 0.5;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.6) - 0.3;
+                let directionY = (Math.random() * 0.6) - 0.3;
+                let color = Math.random() > 0.5 ? '#00f2ff' : '#7000ff';
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        // Connect Particles with gradient lines
+        function connect() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < 15000) { // Increased connection distance
+                        let opacity = 1 - (distance/15000);
+                        
+                        // Create gradient line
+                        const gradient = ctx.createLinearGradient(
+                            particlesArray[a].x, particlesArray[a].y,
+                            particlesArray[b].x, particlesArray[b].y
+                        );
+                        gradient.addColorStop(0, `rgba(0, 242, 255, ${opacity * 0.5})`);
+                        gradient.addColorStop(1, `rgba(112, 0, 255, ${opacity * 0.5})`);
+                        
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            // Fade out effect instead of clear for trails
+            ctx.fillStyle = 'rgba(5, 5, 10, 0.05)';
+            ctx.fillRect(0, 0, innerWidth, innerHeight);
+            
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+
+        init();
+        animate();
+
+        // --- 2. PROGRESS BAR & STATUS SIMULATOR ---
+        const progressFill = document.getElementById('progressFill');
+        const percentageText = document.getElementById('percentageText');
+        const statusText = document.getElementById('statusText');
+        const circlePercentage = document.getElementById('circlePercentage');
+        
+        const statusMessages = [
+            "Career portal under development...",
+            "Preparing to connect with talent...",
+            "Setting up recruitment channels...",
+            "Please use email for now...",
+            "We appreciate your interest...",
+            "Coming soon with opportunities...",
+            "Thank you for your patience..."
+        ];
+
+        let progress = 0;
+        let messageIndex = 0;
+        let circleProgress = 0;
+
+        function updateCirclePercentage() {
+            circlePercentage.textContent = Math.floor(circleProgress) + "%";
+        }
+
+        function simulateLoading() {
+            let increment = Math.random() * 1.2;
+            progress += increment;
+            
+            if (circleProgress < progress) {
+                circleProgress += increment * 0.7;
+            }
+
+            if (progress >= 100) {
+                progress = 100;
+                circleProgress = 100;
+                statusText.innerText = "🚀 Ready to connect! Email us to join our team!";
+                progressFill.style.width = progress + "%";
+                percentageText.innerText = "100%";
+                updateCirclePercentage();
+                
+                // Add celebration effect when complete
+                progressFill.style.boxShadow = "0 0 30px var(--accent-color), 0 0 60px var(--accent-color)";
+                return;
+            } else {
+                progressFill.style.width = progress + "%";
+                percentageText.innerText = Math.floor(progress) + "%";
+                updateCirclePercentage();
+                
+                // Add pulsing effect to percentage when near certain values
+                if (Math.floor(progress) % 25 === 0 && progress > 0) {
+                    percentageText.style.transform = "scale(1.2)";
+                    setTimeout(() => {
+                        percentageText.style.transform = "scale(1)";
+                    }, 300);
+                }
+                
+                if (Math.floor(progress) % 12 === 0 && Math.floor(progress) !== 0) {
+                    messageIndex = (messageIndex + 1) % statusMessages.length;
+                    statusText.innerText = statusMessages[messageIndex];
+                }
+                
+                setTimeout(() => {
+                    requestAnimationFrame(simulateLoading);
+                }, 50);
+            }
+        }
+
+        // Start loading after a short delay
+        setTimeout(simulateLoading, 800);
+
+        // --- 3. ADD FLOATING PARTICLES (BONUS EFFECT) ---
+        function createFloatingParticles() {
+            const container = document.getElementById('floatingParticles');
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                
+                // Random properties
+                const size = Math.random() * 4 + 1;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                const opacity = Math.random() * 0.5 + 0.1;
+                
+                // Apply styles
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}vw`;
+                particle.style.top = `${posY}vh`;
+                particle.style.opacity = opacity;
+                particle.style.background = Math.random() > 0.5 ? 
+                    `radial-gradient(circle, var(--accent-color), transparent)` :
+                    `radial-gradient(circle, var(--accent-secondary), transparent)`;
+                
+                // Animation
+                particle.style.animation = `float ${duration}s infinite ${delay}s linear`;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Add floating particles
+        createFloatingParticles();
+
+        // Add keyframe for floating animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0%, 100% { 
+                    transform: translate(0, 0) rotate(0deg); 
+                }
+                25% { 
+                    transform: translate(${Math.random()*20 - 10}px, ${Math.random()*20 - 10}px) rotate(90deg); 
+                }
+                50% { 
+                    transform: translate(${Math.random()*20 - 10}px, ${Math.random()*20 - 10}px) rotate(180deg); 
+                }
+                75% { 
+                    transform: translate(${Math.random()*20 - 10}px, ${Math.random()*20 - 10}px) rotate(270deg); 
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+    </script>
+</body>
+</html>

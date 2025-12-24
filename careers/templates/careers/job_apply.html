@@ -1,0 +1,542 @@
+{% extends 'careers/base.html' %}
+{% load static %}
+
+{% block careers_content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Application Header -->
+    <div class="text-center mb-10">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Apply for Position</h1>
+        <p class="text-xl text-gray-600 mb-2">{{ job.title }}</p>
+        <div class="flex flex-wrap gap-3 justify-center text-sm text-gray-500">
+            <span class="flex items-center">
+                <i data-lucide="building" class="h-4 w-4 mr-2"></i>
+                {{ job.department }}
+            </span>
+            <span class="flex items-center">
+                <i data-lucide="map-pin" class="h-4 w-4 mr-2"></i>
+                {{ job.location }}
+            </span>
+            <span class="flex items-center">
+                <i data-lucide="briefcase" class="h-4 w-4 mr-2"></i>
+                {{ job.get_job_type_display }}
+            </span>
+        </div>
+    </div>
+    
+    <!-- Application Steps -->
+    <div class="mb-8">
+        <div class="flex justify-center mb-6">
+            <div class="flex items-center">
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 bg-amber-600 text-white rounded-full flex items-center justify-center font-bold">
+                        1
+                    </div>
+                    <span class="text-sm font-medium mt-2 text-amber-600">Position</span>
+                </div>
+                <div class="w-24 h-1 bg-gray-300 mx-2">
+                    <div class="h-full bg-amber-600" style="width: 100%;"></div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 bg-amber-600 text-white rounded-full flex items-center justify-center font-bold">
+                        2
+                    </div>
+                    <span class="text-sm font-medium mt-2 text-amber-600">Application</span>
+                </div>
+                <div class="w-24 h-1 bg-gray-300 mx-2">
+                    <div class="h-full bg-gray-300"></div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center font-bold">
+                        3
+                    </div>
+                    <span class="text-sm font-medium mt-2 text-gray-500">Confirmation</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Application Form -->
+    <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Complete Your Application</h2>
+        <p class="text-gray-600 mb-8">Please fill in all required fields (*) to submit your application.</p>
+        
+        <form method="POST" action="" enctype="multipart/form-data" class="space-y-8">
+            {% csrf_token %}
+            
+            <!-- Personal Information -->
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                    <i data-lucide="user" class="h-5 w-5 mr-2 text-amber-600"></i>
+                    Personal Information
+                </h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            First Name *
+                        </label>
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.first_name.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Last Name *
+                        </label>
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.last_name.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Email Address *
+                        </label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.email.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Phone Number *
+                        </label>
+                        {{ form.phone }}
+                        {% if form.phone.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.phone.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Address *
+                    </label>
+                    {{ form.address }}
+                    {% if form.address.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.address.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-6 mt-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            City *
+                        </label>
+                        {{ form.city }}
+                        {% if form.city.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.city.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            State *
+                        </label>
+                        {{ form.state }}
+                        {% if form.state.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.state.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Pincode *
+                        </label>
+                        {{ form.pincode }}
+                        {% if form.pincode.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.pincode.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Professional Information -->
+            <div class="border-t border-gray-200 pt-8">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                    <i data-lucide="briefcase" class="h-5 w-5 mr-2 text-amber-600"></i>
+                    Professional Information
+                </h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Current Company
+                        </label>
+                        {{ form.current_company }}
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Current Position
+                        </label>
+                        {{ form.current_position }}
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Current Salary (Annual)
+                        </label>
+                        {{ form.current_salary }}
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Expected Salary (Annual) *
+                        </label>
+                        {{ form.expected_salary }}
+                        {% if form.expected_salary.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.expected_salary.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Notice Period
+                        </label>
+                        {{ form.notice_period }}
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Country *
+                        </label>
+                        {{ form.country }}
+                        {% if form.country.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.country.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Total Experience (Years) *
+                        </label>
+                        {{ form.total_experience }}
+                        <p class="text-xs text-gray-500 mt-1">e.g., 5.5 for 5 years and 6 months</p>
+                        {% if form.total_experience.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.total_experience.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Relevant Experience (Years) *
+                        </label>
+                        {{ form.relevant_experience }}
+                        <p class="text-xs text-gray-500 mt-1">Experience specific to this role</p>
+                        {% if form.relevant_experience.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.relevant_experience.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Education -->
+            <div class="border-t border-gray-200 pt-8">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                    <i data-lucide="graduation-cap" class="h-5 w-5 mr-2 text-amber-600"></i>
+                    Education
+                </h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Highest Qualification *
+                        </label>
+                        {{ form.highest_qualification }}
+                        {% if form.highest_qualification.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.highest_qualification.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            University/Institution *
+                        </label>
+                        {{ form.university }}
+                        {% if form.university.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.university.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Year of Passing *
+                    </label>
+                    {{ form.year_of_passing }}
+                    {% if form.year_of_passing.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.year_of_passing.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Documents & Links -->
+            <div class="border-t border-gray-200 pt-8">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                    <i data-lucide="paperclip" class="h-5 w-5 mr-2 text-amber-600"></i>
+                    Documents & Links
+                </h3>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Resume/CV *
+                    </label>
+                    {{ form.resume }}
+                    <p class="text-xs text-gray-500 mt-1">PDF, DOC, or DOCX files only (Maximum 5MB)</p>
+                    {% if form.resume.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.resume.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Cover Letter
+                    </label>
+                    {{ form.cover_letter }}
+                    <p class="text-xs text-gray-500 mt-1">Tell us why you're interested in this position</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Portfolio/Website URL
+                        </label>
+                        {{ form.portfolio_url }}
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            LinkedIn Profile URL
+                        </label>
+                        {{ form.linkedin_url }}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Terms & Privacy -->
+            <div class="bg-gray-50 rounded-lg p-6 mb-8">
+                <div class="flex items-start">
+                    <input type="checkbox" id="terms" name="terms" required 
+                           class="h-4 w-4 text-amber-600 rounded mt-1 mr-3 focus:ring-amber-500 border-gray-300">
+                    <div>
+                        <label for="terms" class="text-sm text-gray-700">
+                            I agree to the <a href="#" class="text-amber-600 hover:text-amber-700">Terms of Use</a> and 
+                            <a href="#" class="text-amber-600 hover:text-amber-700">Privacy Policy</a>. I understand that 
+                            my personal information will be processed in accordance with JAYARAMA ASSOCIATES' privacy practices.
+                        </label>
+                        <p class="text-xs text-gray-500 mt-2">
+                            By submitting this application, I confirm that the information provided is accurate and complete.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start mt-4">
+                    <input type="checkbox" id="consent" name="consent" 
+                           class="h-4 w-4 text-amber-600 rounded mt-1 mr-3 focus:ring-amber-500 border-gray-300">
+                    <label for="consent" class="text-sm text-gray-700">
+                        I consent to JAYARAMA ASSOCIATES storing my personal information for future job opportunities 
+                        (You can withdraw this consent at any time by contacting us).
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Form Actions -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+                <button type="submit" 
+                        class="flex-1 bg-amber-600 hover:bg-amber-700 text-white font-semibold py-4 px-6 rounded-lg transition-all flex items-center justify-center">
+                    <i data-lucide="send" class="mr-2 h-5 w-5"></i>
+                    Submit Application
+                </button>
+                
+                <a href="{% url 'careers:job_detail' job.pk job.title|slugify %}" 
+                   class="flex-1 border border-gray-300 hover:border-gray-400 text-gray-700 font-medium py-4 px-6 rounded-lg text-center transition-all">
+                    Back to Job Details
+                </a>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Application Tips -->
+    <div class="mt-8 grid md:grid-cols-3 gap-6">
+        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl border border-blue-200">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                <i data-lucide="file-check" class="h-6 w-6 text-blue-600"></i>
+            </div>
+            <h4 class="font-semibold text-gray-900 mb-2">Complete Your Profile</h4>
+            <p class="text-sm text-gray-600">Fill in all sections to increase your chances of being shortlisted.</p>
+        </div>
+        
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border border-green-200">
+            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                <i data-lucide="shield-check" class="h-6 w-6 text-green-600"></i>
+            </div>
+            <h4 class="font-semibold text-gray-900 mb-2">Secure Submission</h4>
+            <p class="text-sm text-gray-600">Your information is encrypted and stored securely.</p>
+        </div>
+        
+        <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl border border-purple-200">
+            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                <i data-lucide="clock" class="h-6 w-6 text-purple-600"></i>
+            </div>
+            <h4 class="font-semibold text-gray-900 mb-2">What's Next?</h4>
+            <p class="text-sm text-gray-600">Our HR team will review your application within 7-10 business days.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Form input styling */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.1);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Checkbox styling */
+input[type="checkbox"]:focus {
+    outline: 2px solid #f59e0b;
+    outline-offset: 2px;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-calculate relevant experience based on total experience
+    const totalExpInput = document.querySelector('[name="total_experience"]');
+    const relevantExpInput = document.querySelector('[name="relevant_experience"]');
+    
+    if (totalExpInput && relevantExpInput) {
+        totalExpInput.addEventListener('blur', function() {
+            const totalExp = parseFloat(this.value);
+            if (totalExp && !relevantExpInput.value) {
+                relevantExpInput.value = totalExp;
+            }
+        });
+    }
+    
+    // Form validation
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.classList.add('border-red-500');
+                    
+                    // Add error message if not exists
+                    if (!field.nextElementSibling || !field.nextElementSibling.classList.contains('text-red-500')) {
+                        const errorDiv = document.createElement('p');
+                        errorDiv.className = 'text-red-500 text-sm mt-1';
+                        errorDiv.textContent = 'This field is required';
+                        field.parentNode.appendChild(errorDiv);
+                    }
+                } else {
+                    field.classList.remove('border-red-500');
+                    // Remove existing error message
+                    const errorMsg = field.nextElementSibling;
+                    if (errorMsg && errorMsg.classList.contains('text-red-500')) {
+                        errorMsg.remove();
+                    }
+                }
+            });
+            
+            // Check terms checkbox
+            const termsCheckbox = document.getElementById('terms');
+            if (termsCheckbox && !termsCheckbox.checked) {
+                isValid = false;
+                alert('Please agree to the Terms and Privacy Policy.');
+            }
+            
+            if (!isValid) {
+                e.preventDefault();
+                
+                // Scroll to first error
+                const firstError = form.querySelector('.border-red-500');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstError.focus();
+                }
+            } else {
+                // Show loading state
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = `
+                    <svg class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Submitting...
+                `;
+                submitBtn.disabled = true;
+            }
+        });
+    }
+    
+    // File size validation
+    const resumeInput = document.querySelector('[name="resume"]');
+    if (resumeInput) {
+        resumeInput.addEventListener('change', function() {
+            const file = this.files[0];
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+            
+            if (file) {
+                // Check file type
+                if (!allowedTypes.includes(file.type)) {
+                    alert('Please upload only PDF, DOC, or DOCX files.');
+                    this.value = '';
+                    return;
+                }
+                
+                // Check file size
+                if (file.size > maxSize) {
+                    alert('File size exceeds 5MB limit. Please upload a smaller file.');
+                    this.value = '';
+                    return;
+                }
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

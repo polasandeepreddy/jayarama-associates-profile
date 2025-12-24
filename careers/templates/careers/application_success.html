@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Processing</title>
+    <style>
+        /* --- VARIABLES --- */
+        :root {
+            /* Professional Blue Palette */
+            --primary: #2563eb;       /* Royal Blue */
+            --primary-light: #60a5fa; /* Lighter Blue */
+            --bg-gradient-start: #f3f4f6;
+            --bg-gradient-end: #e5e7eb;
+            --text-main: #1f2937;     /* Dark Grey for readability */
+            --text-muted: #6b7280;    /* Medium Grey */
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --card-border: rgba(255, 255, 255, 0.8);
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            /* Soft, breathing gradient background */
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* --- DECORATIVE BACKGROUND BLOBS --- */
+        /* Adds depth without being distracting */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: 0;
+            opacity: 0.6;
+            animation: floatBackground 10s ease-in-out infinite;
+        }
+        .blob-1 {
+            width: 400px; height: 400px;
+            background: #bfdbfe;
+            top: -100px; left: -100px;
+        }
+        .blob-2 {
+            width: 300px; height: 300px;
+            background: #e0e7ff;
+            bottom: -50px; right: -50px;
+            animation-delay: -5s;
+        }
+
+        @keyframes floatBackground {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, 40px); }
+        }
+
+        /* --- CARD CONTAINER --- */
+        .card {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 420px;
+            padding: 40px;
+            
+            /* Modern Glass Effect */
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            
+            /* Soft Shadow for elevation */
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.05), 
+                0 10px 15px -3px rgba(0, 0, 0, 0.05),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+                
+            text-align: center;
+        }
+
+        /* --- ICON ANIMATION --- */
+        .icon-container {
+            width: 64px;
+            height: 64px;
+            background: white;
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.1);
+            position: relative;
+        }
+
+        /* A simple spinning ring for loading */
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid #e5e7eb;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        p.subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        /* --- PROGRESS BAR --- */
+        .progress-wrapper {
+            margin-bottom: 15px;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--primary);
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-text {
+            color: var(--text-main);
+        }
+
+        .percentage {
+            color: var(--primary);
+        }
+
+        /* --- SUCCESS STATE (Hidden by default) --- */
+        .success-icon {
+            display: none;
+            color: #10b981; /* Green */
+            font-size: 1.5rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="card">
+        <div class="icon-container">
+            <div class="spinner" id="spinner"></div>
+            <div class="success-icon" id="successIcon">✓</div>
+        </div>
+
+        <h1 id="mainTitle">Submitting Application</h1>
+        <p class="subtitle" id="subTitle">Please wait while we securely upload your resume and details.</p>
+
+        <div class="progress-wrapper">
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="status-row">
+                <span class="status-text" id="statusText">Connecting to server...</span>
+                <span class="percentage" id="percentageText">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- LOGIC ---
+        const progressFill = document.getElementById('progressFill');
+        const percentageText = document.getElementById('percentageText');
+        const statusText = document.getElementById('statusText');
+        const mainTitle = document.getElementById('mainTitle');
+        const subTitle = document.getElementById('subTitle');
+        const spinner = document.getElementById('spinner');
+        const successIcon = document.getElementById('successIcon');
+        
+        // Career-focused messages
+        const steps = [
+            { pct: 10, msg: "Encrypting personal data..." },
+            { pct: 30, msg: "Uploading resume (PDF)..." },
+            { pct: 60, msg: "Verifying formatting..." },
+            { pct: 85, msg: "Finalizing submission..." },
+            { pct: 100, msg: "Application Sent!" }
+        ];
+
+        let currentProgress = 0;
+
+        function simulateUpload() {
+            // Speed of upload
+            let increment = Math.random() * 1.5; 
+            currentProgress += increment;
+
+            if (currentProgress >= 100) {
+                currentProgress = 100;
+                finishAnimation();
+            } else {
+                updateUI(currentProgress);
+                requestAnimationFrame(simulateUpload);
+            }
+        }
+
+        function updateUI(progress) {
+            progressFill.style.width = progress + "%";
+            percentageText.innerText = Math.floor(progress) + "%";
+
+            // Find correct message based on percentage
+            let activeStep = steps.find(step => progress < step.pct) || steps[steps.length - 1];
+            if(Math.floor(progress) < 100) {
+                 statusText.innerText = activeStep.msg;
+            }
+        }
+
+        function finishAnimation() {
+            // Final UI Update
+            progressFill.style.width = "100%";
+            percentageText.innerText = "100%";
+            statusText.innerText = "Complete";
+            
+            // Switch Text
+            mainTitle.innerText = "Success!";
+            subTitle.innerText = "Your application has been received. Our HR team will contact you shortly.";
+            
+            // Switch Icon
+            spinner.style.display = "none";
+            successIcon.style.display = "block";
+            
+            // Optional: Redirect
+            // setTimeout(() => window.location.href = "/thank-you", 2000);
+        }
+
+        // Start after short delay
+        setTimeout(simulateUpload, 500);
+
+    </script>
+</body>
+</html>

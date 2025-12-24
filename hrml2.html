@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mphasis - Job Application</title>
+    <style>
+        /* General Reset and Typography */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            font-size: 13px;
+        }
+
+        /* Container styling to match the white paper look */
+        .container {
+            max-width: 1100px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 40px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Section Headers */
+        h4 {
+            color: #555;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        /* Grid Layout for Form Fields */
+        .form-row {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .label-col {
+            width: 25%;
+            text-align: right;
+            padding-right: 20px;
+            color: #444;
+            font-weight: 500;
+        }
+
+        .input-col {
+            width: 75%;
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Input Styling */
+        input[type="text"], 
+        input[type="email"], 
+        input[type="number"], 
+        select {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            width: 100%;
+            font-size: 13px;
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #66afe9;
+        }
+
+        /* Specific Widths for side-by-side dropdowns */
+        .half-width {
+            width: 48%;
+        }
+
+        .small-width {
+            width: 150px;
+        }
+
+        /* Read-only styling for the top section */
+        .read-only-text {
+            border: none;
+            background: transparent;
+            font-weight: 600;
+            padding: 8px 0;
+        }
+
+        /* Required Asterisk */
+        .required {
+            color: #cc0000;
+            margin-right: 2px;
+        }
+
+        /* File Upload Styling */
+        .file-upload-wrapper {
+            display: flex;
+            width: 100%;
+        }
+        
+        .browse-btn {
+            background-color: #ccc;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            color: #333;
+            font-size: 12px;
+        }
+
+        .file-input-dummy {
+            flex-grow: 1;
+        }
+
+        /* Radio Button Group */
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            height: 35px;
+        }
+
+        /* Privacy Policy & Button Section */
+        .footer-section {
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .submit-btn {
+            background-color: #F37021; /* Mphasis Orange */
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .submit-btn:hover {
+            background-color: #d6611b;
+        }
+
+        /* Helper class for the specific layout seen in screenshot */
+        .address-box {
+            height: 60px;
+        }
+
+        /* Top Header Mockup */
+        .page-header {
+            background-color: #fff;
+            padding: 15px 40px;
+            border-bottom: 3px solid #F37021;
+            margin-bottom: 20px;
+        }
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .logo-accent {
+            color: #F37021;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <div class="logo-text">Mphasis <span class="logo-accent">></span> <span style="font-size: 14px; font-weight: normal;">The Next Applied</span></div>
+    </div>
+
+    <div class="container">
+        
+        <h4>Basic Details</h4>
+        
+        <div class="form-row">
+            <div class="label-col">Title :</div>
+            <div class="input-col"><span class="read-only-text">Mr.</span></div>
+        </div>
+        <div class="form-row">
+            <div class="label-col">First name :</div>
+            <div class="input-col"><span class="read-only-text">POLA</span></div>
+        </div>
+        <div class="form-row">
+            <div class="label-col">Middle name :</div>
+            <div class="input-col"><span class="read-only-text">SANDEEP</span></div>
+        </div>
+        <div class="form-row">
+            <div class="label-col">Last name :</div>
+            <div class="input-col"><span class="read-only-text">REDDY</span></div>
+        </div>
+        <div class="form-row">
+            <div class="label-col">Email ID :</div>
+            <div class="input-col"><span class="read-only-text">MR.POLASANDEEPREDDY@GMAIL.COM</span></div>
+        </div>
+        <div class="form-row">
+            <div class="label-col">Contact number 1 :</div>
+            <div class="input-col"><span class="read-only-text">+91 - 7286997507</span></div>
+        </div>
+        <div class="form-row">
+            <div class="label-col">Date of birth :</div>
+            <div class="input-col"><span class="read-only-text">24 - 2 - 2000</span></div>
+        </div>
+        <div class="form-row">
+            <div class="label-col">PAN Number :</div>
+            <div class="input-col"><span class="read-only-text">LUAPS9179K</span></div>
+        </div>
+
+        <h4>Professional Details</h4>
+
+        <form action="#" method="POST">
+            
+            <div class="form-row">
+                <div class="label-col"><span class="required">*</span>Total experience :</div>
+                <div class="input-col">
+                    <select class="half-width"><option>Select Year</option></select>
+                    <select class="half-width"><option>Select Month</option></select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="label-col">Relevant experience :</div>
+                <div class="input-col">
+                    <select class="half-width"><option>Select Year</option></select>
+                    <select class="half-width"><option>Select Month</option></select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="label-col"><span class="required">*</span>Current annual salary :</div>
+                <div class="input-col">
+                    <select style="width: 30%;"><option>Rs. - INR</option></select>
+                    <input type="text" placeholder="Enter Amount" style="width: 70%;">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="label-col"><span class="required">*</span>Expected CTC :</div>
+                <div class="input-col">
+                    <input type="text" placeholder="Enter Amount">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="label-col"><span class="required">*</span>Have you worked with Mphasis before? :</div>
+                <div class="input-col radio-group">
+                    <label><input type="radio" name="worked_before" value="no"> No</label>
+                    <label><input type="radio" name="worked_before" value="yes"> Yes</label>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="label-col"><span class="required">*</span>Notice period :</div>
+                <div class="input-col" style="align-items: center;">
+                    <input type="text" placeholder="Enter Days" class="small-width"> 
+                    <span style="margin-left: 10px;">days</span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="label-col"><span class="required">*</span>Competency Area :</div>
+                <div class="input-col">
+                    <select><option>Select</option></select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="label-col">Primary skill :</div>
+                <div class="input-col">
+                    <input type="text" placeholder="Enter a skill">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="label-col">Secondary skills :</div>
+                <div class="input-col">
+                    <input type="text" placeholder="Enter skills">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="label-col">Address :</div>
+                <div class="input-col">
+                    <input type="text" class="address-box">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="label-col"><span class="required">*</span>Resident city :</div>
+                <div class="input-col">
+                    <input type="text" placeholder="Type location">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="label-col"><span class="required">*</span>Upload resume :</div>
+                <div class="input-col file-upload-wrapper">
+                    <input type="text" class="file-input-dummy" readonly style="background: white;">
+                    <button type="button" class="browse-btn">Browse</button>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="label-col"></div>
+                <div class="input-col" style="font-size: 11px; color: #777; margin-top: -10px;">
+                    (Maximum file size 3 MB, File format: .doc, .docx, .pdf, .rtf)
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="label-col">Upload photograph :</div>
+                <div class="input-col file-upload-wrapper">
+                    <input type="text" class="file-input-dummy" readonly style="background: white;">
+                    <button type="button" class="browse-btn">Browse</button>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="label-col"></div>
+                <div class="input-col" style="font-size: 11px; color: #777; margin-top: -10px;">
+                    (Maximum file size 10 MB, File format: .jpg, .jpeg, .png)
+                </div>
+            </div>
+
+            <h4>Personal Details</h4>
+
+            <div class="form-row">
+                <div class="label-col"><span class="required">*</span>Current employer :</div>
+                <div class="input-col">
+                    <input type="text" placeholder="Enter employer name">
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <label class="checkbox-label">
+                    <input type="checkbox" required>
+                    <span>
+                        I have read and accept the <a href="#" style="color: #66afe9;">terms of use</a> and <a href="#" style="color: #66afe9;">privacy policy</a>.<br>
+                        I agree and confirm that in my resume I have shared my personal information limited to Name, Email ID and Contact Number only along with my experience details.
+                    </span>
+                </label>
+
+                <div class="form-row">
+                    <div class="label-col"></div> <div class="input-col">
+                        <button type="submit" class="submit-btn">Submit Application</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>
